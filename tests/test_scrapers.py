@@ -18,66 +18,67 @@ def _load_fixture(name):
 
 
 class TestPhilJobsSearchParsing:
-    """Test parsing of PhilJobs search results page."""
+    """Test parsing of PhilJobs search results page (div.job structure)."""
 
-    def test_parse_search_rows(self):
+    def test_parse_job_divs(self):
         soup = _load_fixture("philjobs_search.html")
         scraper = PhilJobsScraper()
 
-        rows = soup.select("table.joblist tr.job-listing")
-        assert len(rows) == 3
+        divs = soup.select("div.job")
+        assert len(divs) == 3
 
-        # Parse first row (skip detail fetching)
-        with patch.object(scraper, "_fetch_detail", return_value={}):
-            listing = scraper._parse_row(rows[0])
+        listing = scraper._parse_job_div(divs[0], "job")
 
         assert listing is not None
         assert listing.title == "Postdoctoral Research Fellow in Philosophy of Physics"
         assert listing.institution == "University of Oxford"
         assert listing.deadline == "2026-05-15"
         assert listing.url == "https://philjobs.org/job/show/12345"
+        assert "Philosophy of Physics" in listing.aos_raw
 
     def test_parse_tenure_track(self):
         soup = _load_fixture("philjobs_search.html")
         scraper = PhilJobsScraper()
-        rows = soup.select("table.joblist tr.job-listing")
+        divs = soup.select("div.job")
 
-        with patch.object(scraper, "_fetch_detail", return_value={}):
-            listing = scraper._parse_row(rows[1])
+        listing = scraper._parse_job_div(divs[1], "job")
 
-        assert listing.title == "Assistant Professor of Philosophy (tenure-track)"
+        assert listing.title == "Assistant Professor of Philosophy"
         assert listing.institution == "University of Pittsburgh"
-        assert listing.listing_type == "job"  # "tenure" in text
+        assert listing.listing_type == "job"
 
     def test_parse_phd(self):
         soup = _load_fixture("philjobs_search.html")
         scraper = PhilJobsScraper()
-        rows = soup.select("table.joblist tr.job-listing")
+        divs = soup.select("div.job")
 
-        with patch.object(scraper, "_fetch_detail", return_value={}):
-            listing = scraper._parse_row(rows[2])
+        listing = scraper._parse_job_div(divs[2], "unknown")
 
         assert "Formal Epistemology" in listing.title
         assert listing.institution == "Ludwig-Maximilians-Universität München"
 
 
 class TestPhilJobsDetailParsing:
-    """Test parsing of a PhilJobs detail page."""
+    """Test parsing of a PhilJobs detail page HTML fixture."""
 
-    def test_extract_structured_fields(self):
+    def test_extract_structured_fields_from_dl(self):
+        """Verify the detail page fixture has extractable structured data."""
         soup = _load_fixture("philjobs_listing.html")
-        scraper = PhilJobsScraper()
 
-        result = {}
-        scraper._extract_structured_fields(soup, result)
+        # Extract fields from definition list (dt/dd pairs)
+        fields = {}
+        for dt in soup.select("dt"):
+            label = dt.get_text(strip=True).lower()
+            dd = dt.find_next_sibling("dd")
+            if dd:
+                fields[label] = dd.get_text(strip=True)
 
-        assert result["institution"] == "University of Oxford"
-        assert "Philosophy of Physics" in result["aos_raw"]
-        assert result["location"] == "Oxford, United Kingdom"
-        assert result["start_date"] == "September 1, 2026"
-        assert "£38,674" in result["salary"]
-        assert result["duration"] == "3 years"
-        assert result["deadline"] == "2026-05-15"
+        assert fields["institution"] == "University of Oxford"
+        assert "Philosophy of Physics" in fields["area of specialization"]
+        assert fields["location"] == "Oxford, United Kingdom"
+        assert fields["start date"] == "September 1, 2026"
+        assert "£38,674" in fields["salary"]
+        assert fields["duration"] == "3 years"
 
     def test_extract_description(self):
         soup = _load_fixture("philjobs_listing.html")

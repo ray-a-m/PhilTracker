@@ -52,7 +52,7 @@ class BaseScraper:
         headers = {
             "User-Agent": "PhilTracker/0.1 (https://github.com/yourname/philtracker)"
         }
-        response = requests.get(target, headers=headers, params=params, timeout=30)
+        response = requests.get(target, headers=headers, params=params, timeout=15)
         response.raise_for_status()
         return BeautifulSoup(response.text, "html.parser")
 
