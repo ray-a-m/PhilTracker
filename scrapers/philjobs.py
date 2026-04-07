@@ -13,25 +13,50 @@ class PhilJobsScraper(BaseScraper):
     name = "PhilJobs"
     url = "https://philjobs.org/job/search"
 
-    # PhilJobs listing type slugs -> our listing_type
-    TYPE_MAP = {
-        "postdoc": "postdoc",
-        "tenure": "job",
-        "fixed-term": "job",
-        "graduate": "phd",
-        "fellowship": "fellowship",
+    # PhilJobs job category query paths and their listing types
+    CATEGORIES = {
+        "/jobQuery/fixedTerm": "job",
+        "/jobQuery/tt": "job",
+        "/jobQuery/senior": "job",
+        "/jobQuery/other": "unknown",
     }
+
+    # Also check the main search page
+    PAGES_PER_CATEGORY = 3
 
     def scrape(self) -> list[Listing]:
         listings = []
+        seen_urls = set()
 
-        # PhilJobs paginates; scrape first 3 pages to stay polite
-        for page in range(1, 4):
+        # Scrape each category
+        for path, default_type in self.CATEGORIES.items():
+            cat_url = f"https://philjobs.org{path}"
+            cat_listings = self._scrape_category(cat_url, default_type)
+            for listing in cat_listings:
+                if listing.url not in seen_urls:
+                    seen_urls.add(listing.url)
+                    listings.append(listing)
+            time.sleep(1)
+
+        # Also scrape the main search page
+        main_listings = self._scrape_category(self.url, "unknown")
+        for listing in main_listings:
+            if listing.url not in seen_urls:
+                seen_urls.add(listing.url)
+                listings.append(listing)
+
+        return listings
+
+    def _scrape_category(self, base_url: str, default_type: str) -> list[Listing]:
+        """Scrape all pages of a PhilJobs category."""
+        listings = []
+
+        for page in range(1, self.PAGES_PER_CATEGORY + 1):
             params = {"page": page}
             try:
-                soup = self.fetch(params=params)
+                soup = self.fetch(base_url, params=params)
             except Exception as e:
-                print(f"[{self.name}] Error fetching page {page}: {e}")
+                print(f"[{self.name}] Error fetching {base_url} page {page}: {e}")
                 break
 
             job_rows = soup.select("table.joblist tr.job-listing, div.job-listing, div.listing-item")
@@ -42,13 +67,24 @@ class PhilJobsScraper(BaseScraper):
                 break
 
             for row in job_rows:
-                listing = self._parse_row(row)
+                listing = self._parse_row(row, default_type)
                 if listing:
                     listings.append(listing)
 
+            time.sleep(1)
+
         return listings
 
-    def _parse_row(self, row) -> Listing | None:
+    # PhilJobs listing type slugs -> our listing_type
+    TYPE_MAP = {
+        "postdoc": "postdoc",
+        "tenure": "job",
+        "fixed-term": "job",
+        "graduate": "phd",
+        "fellowship": "fellowship",
+    }
+
+    def _parse_row(self, row, default_type: str = "unknown") -> Listing | None:
         """Parse a single job row/card into a Listing, then fetch its detail page."""
         link = row.select_one("a[href*='/job/show/']") or row.select_one("a[href*='philjobs.org']")
         if not link:
@@ -73,8 +109,8 @@ class PhilJobsScraper(BaseScraper):
         # Deadline from index row
         deadline = self._extract_deadline(row)
 
-        # Listing type from index row
-        listing_type = "unknown"
+        # Listing type from index row text, falling back to category default
+        listing_type = default_type
         row_text = row.get_text().lower()
         for slug, ltype in self.TYPE_MAP.items():
             if slug in row_text:

@@ -2,8 +2,10 @@
 Scheduler entry point: runs all scrapers, tags results, and stores them.
 
 Usage:
-    python -m scheduler.run_all          # run all scrapers
-    python -m scheduler.run_all philjobs # run a specific scraper
+    python -m scheduler.run_all                     # run everything
+    python -m scheduler.run_all philjobs            # run a specific scraper
+    python -m scheduler.run_all institutional       # run all institutional scrapers
+    python -m scheduler.run_all philjobs spacetime  # run multiple specific scrapers
 
 Designed to be called by GitHub Actions on a daily cron schedule.
 """
@@ -14,13 +16,18 @@ from datetime import date
 
 from scrapers.philjobs import PhilJobsScraper
 from scrapers.taking_up_spacetime import TakingUpSpacetimeScraper
+from scrapers.academic_jobs_wiki import AcademicJobsWikiScraper
+from scrapers.higheredjobs import HigherEdJobsScraper
+from scrapers.institutional.runner import run_institutional
 from tagger.keywords import tag_listings
 from backend.models import init_db, insert_listing, deactivate_expired
 
-# Registry of all scrapers
+# Registry of standalone scrapers
 SCRAPERS = {
     "philjobs": PhilJobsScraper,
-    "taking_up_spacetime": TakingUpSpacetimeScraper,
+    "spacetime": TakingUpSpacetimeScraper,
+    "academic_jobs_wiki": AcademicJobsWikiScraper,
+    "higheredjobs": HigherEdJobsScraper,
 }
 
 
@@ -47,22 +54,44 @@ def run_all(selected: list[str] | None = None):
     deactivate_expired()
 
     all_listings = []
-    scrapers_to_run = SCRAPERS
 
     if selected:
-        scrapers_to_run = {
-            k: v for k, v in SCRAPERS.items() if k in selected
-        }
-        unknown = set(selected) - set(SCRAPERS.keys())
-        if unknown:
-            print(f"Warning: unknown scrapers ignored: {unknown}")
-            print(f"Available: {list(SCRAPERS.keys())}")
+        # Run only selected scrapers
+        for name in selected:
+            if name == "institutional":
+                print(f"\n{'='*60}")
+                print("Running: All institutional scrapers")
+                print(f"{'='*60}")
+                try:
+                    listings = run_institutional()
+                    print(f"[Institutional] Total: {len(listings)} listings")
+                    all_listings.extend(listings)
+                except Exception as e:
+                    print(f"[Institutional] FAILED: {e}")
+            elif name in SCRAPERS:
+                listings = run_scraper(SCRAPERS[name])
+                all_listings.extend(listings)
+                time.sleep(2)
+            else:
+                print(f"Warning: unknown scraper '{name}'")
+                print(f"Available: {list(SCRAPERS.keys()) + ['institutional']}")
+    else:
+        # Run everything
+        for name, scraper_cls in SCRAPERS.items():
+            listings = run_scraper(scraper_cls)
+            all_listings.extend(listings)
+            time.sleep(2)
 
-    for name, scraper_cls in scrapers_to_run.items():
-        listings = run_scraper(scraper_cls)
-        all_listings.extend(listings)
-        # Be polite: pause between scrapers
-        time.sleep(2)
+        # Run all institutional scrapers
+        print(f"\n{'='*60}")
+        print("Running: All institutional scrapers")
+        print(f"{'='*60}")
+        try:
+            inst_listings = run_institutional()
+            print(f"[Institutional] Total: {len(inst_listings)} listings")
+            all_listings.extend(inst_listings)
+        except Exception as e:
+            print(f"[Institutional] FAILED: {e}")
 
     # Tag all listings
     print(f"\nTagging {len(all_listings)} listings...")

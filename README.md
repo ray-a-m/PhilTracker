@@ -22,18 +22,48 @@ PhilTracker fixes this by:
 
 ## Sources
 
-Currently planned:
+### Standalone scrapers
 
 | Source | Type | Status |
 |---|---|---|
-| PhilJobs | Job board | Planned |
-| Taking Up Spacetime | Blog (philosophy of physics) | Planned |
-| HigherEdJobs | General academic job board | Planned |
-| PSA Calendar | Events and calls | Planned |
-| Geneva Symmetry Group | Institutional page | Planned |
-| Pittsburgh Center for Phil of Science | Institutional page | Planned |
-| Rotman Institute | Institutional page | Planned |
-| Philosophy of Physics Society | News/jobs | Planned |
+| PhilJobs (all categories) | Job board | Implemented |
+| Taking Up Spacetime | Blog (philosophy of physics) | Implemented |
+| HigherEdJobs | General academic job board (Playwright) | Implemented |
+| Academic Jobs Wiki | Wiki (Philosophy & Humanities postdocs) | Implemented |
+
+### Institutional sites (configurable — `scrapers/institutional/config.yaml`)
+
+Add new sites by editing the config file — no new code needed.
+
+| Site | Subfield | Type |
+|---|---|---|
+| Geneva Symmetry Group | Philosophy of Physics | WordPress |
+| Geneva Symmetry Group Blog | Philosophy of Physics | WordPress |
+| Cambridge Philosophy of Physics | Philosophy of Physics | Static |
+| Bonn Lichtenberg Group | HPS | Static |
+| Pittsburgh Center for Phil of Science | Philosophy of Science | WordPress |
+| Rotman Institute | Philosophy of Science | WordPress |
+| Minnesota Center for Phil of Science | Philosophy of Science | Static |
+| CPNSS (LSE) | Philosophy of Science | Static |
+| Descartes Centre (Utrecht) | HPS | Static |
+| Tilburg TiLPS | Philosophy of Science | Static |
+| MCMP Munich | Formal Philosophy | Static |
+| ILLC Amsterdam | Logic | Static |
+| Arché (St Andrews) | Formal Philosophy | Static |
+| LOGOS (Barcelona) | Philosophy of Language | Static |
+| Konrad Lorenz Institute | Philosophy of Biology | Static |
+| Egenis (Exeter) | Philosophy of Biology | Static |
+| Oxford Uehiro Centre | Ethics | Static |
+| Princeton Center for Human Values | Ethics | Static |
+| Harvard Safra Center for Ethics | Ethics | Static |
+| Georgetown Kennedy Institute | Ethics | Static |
+| NYU Center for Mind Brain Consciousness | Philosophy of Mind | WordPress |
+| Berlin School of Mind and Brain | Philosophy of Mind | Static |
+| Husserl Archives (Leuven) | Continental | Static |
+| Hegel-Archiv (Bochum) | German Idealism | Static |
+| Warwick Post-Kantian Philosophy | German Idealism | Static |
+| Philosophy of Physics Society | Philosophy of Physics | WordPress |
+| Daily Nous Job Market | General | WordPress |
 
 Want to add a source? See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 

@@ -1,0 +1,206 @@
+# Institutional site configurations for PhilTracker
+# Each entry defines a site to scrape with its type and settings.
+# type: "wordpress" (blog-style) or "static" (university/institutional page)
+# keywords: terms that indicate a post/link is job-related
+# secondary_url: optional additional page to check
+
+default_keywords: &default_keywords
+  - "postdoc"
+  - "post-doc"
+  - "postdoctoral"
+  - "fellowship"
+  - "position"
+  - "call for applications"
+  - "call for papers"
+  - "PhD"
+  - "doctoral"
+  - "tenure"
+  - "professor"
+  - "lecturer"
+  - "vacancy"
+  - "job"
+  - "hiring"
+  - "opening"
+  - "appointment"
+  - "opportunity"
+
+sites:
+
+  # ── Philosophy of Physics / Foundations ──────────────────────
+
+  - name: "Geneva Symmetry Group"
+    url: "https://genevasymmetrygroup.wordpress.com/open-positions/"
+    type: wordpress
+    keywords: *default_keywords
+    subfield: "philosophy-of-physics"
+
+  - name: "Geneva Symmetry Group Blog"
+    url: "https://genevasymmetrygroup.wordpress.com/"
+    type: wordpress
+    keywords: *default_keywords
+    subfield: "philosophy-of-physics"
+
+  - name: "Cambridge Philosophy of Physics"
+    url: "https://www.phi.cam.ac.uk/news"
+    type: static
+    keywords: *default_keywords
+    subfield: "philosophy-of-physics"
+
+  - name: "Bonn Lichtenberg Group"
+    url: "https://www.hppd.uni-bonn.de/"
+    type: static
+    keywords: *default_keywords
+    subfield: "history-and-philosophy-of-science"
+
+  # ── Philosophy of Science (general) ─────────────────────────
+
+  - name: "Pittsburgh Center for Philosophy of Science"
+    url: "https://www.centerphilsci.pitt.edu/programs/postdoc-fellowships/how-to-join/"
+    type: wordpress
+    keywords: *default_keywords
+    secondary_url: "https://www.centerphilsci.pitt.edu/news/"
+    subfield: "philosophy-of-science"
+
+  - name: "Rotman Institute"
+    url: "https://www.rotman.uwo.ca/fellows/rotman-institute-postdoctoral-fellowship/philosophy-of-science-postdoctoral-fellowship/"
+    type: wordpress
+    keywords: *default_keywords
+    subfield: "philosophy-of-science"
+
+  - name: "Minnesota Center for Philosophy of Science"
+    url: "https://cla.umn.edu/mcps/news-events/news"
+    type: static
+    keywords: *default_keywords
+    subfield: "philosophy-of-science"
+
+  - name: "CPNSS LSE"
+    url: "https://www.lse.ac.uk/cpnss/research-opportunities"
+    type: static
+    keywords: *default_keywords
+    subfield: "philosophy-of-science"
+
+  - name: "Descartes Centre Utrecht"
+    url: "https://www.uu.nl/en/research/descartes-centre"
+    type: static
+    keywords: *default_keywords
+    subfield: "history-and-philosophy-of-science"
+
+  - name: "Tilburg TiLPS"
+    url: "https://www.tilburguniversity.edu/research/institutes-and-research-groups/tilps"
+    type: static
+    keywords: *default_keywords
+    subfield: "philosophy-of-science"
+
+  # ── Formal / Mathematical Philosophy ────────────────────────
+
+  - name: "MCMP Munich"
+    url: "https://www.mcmp.philosophie.uni-muenchen.de/about/open_pos/index.html"
+    type: static
+    keywords: *default_keywords
+    subfield: "formal-epistemology"
+
+  - name: "ILLC Amsterdam"
+    url: "https://www.illc.uva.nl/NewsandEvents/Vacancies/"
+    type: static
+    keywords: *default_keywords
+    subfield: "logic"
+
+  - name: "Arché St Andrews"
+    url: "https://www.st-andrews.ac.uk/arche/news/"
+    type: static
+    keywords: *default_keywords
+    subfield: "formal-epistemology"
+
+  - name: "LOGOS Barcelona"
+    url: "https://www.ub.edu/web/ub/en/recerca/grups/fitxa/L/LOGOS/index.html"
+    type: static
+    keywords: *default_keywords
+    subfield: "philosophy-of-language"
+
+  # ── Philosophy of Biology ───────────────────────────────────
+
+  - name: "Konrad Lorenz Institute"
+    url: "https://kli.ac.at/fellowships"
+    type: static
+    keywords: *default_keywords
+    subfield: "philosophy-of-biology"
+
+  - name: "Egenis Exeter"
+    url: "https://socialsciences.exeter.ac.uk/sociology/research/sts/egenis/"
+    type: static
+    keywords: *default_keywords
+    subfield: "philosophy-of-biology"
+
+  # ── Ethics / Political ──────────────────────────────────────
+
+  - name: "Oxford Uehiro Centre"
+    url: "https://www.practicalethics.ox.ac.uk/vacancies"
+    type: static
+    keywords: *default_keywords
+    subfield: "political-philosophy-ethics"
+
+  - name: "Princeton Center for Human Values"
+    url: "https://uchv.princeton.edu/fellowships"
+    type: static
+    keywords: *default_keywords
+    subfield: "political-philosophy-ethics"
+
+  - name: "Harvard Safra Center for Ethics"
+    url: "https://ethics.harvard.edu/fellowships"
+    type: static
+    keywords: *default_keywords
+    subfield: "political-philosophy-ethics"
+
+  - name: "Georgetown Kennedy Institute"
+    url: "https://kennedyinstitute.georgetown.edu/"
+    type: static
+    keywords: *default_keywords
+    subfield: "political-philosophy-ethics"
+
+  # ── Philosophy of Mind / Cognitive Science ───────────────────
+
+  - name: "NYU Center for Mind Brain Consciousness"
+    url: "https://wp.nyu.edu/consciousness/"
+    type: wordpress
+    keywords: *default_keywords
+    subfield: "philosophy-of-mind"
+
+  - name: "Berlin School of Mind and Brain"
+    url: "https://www.mind-and-brain.de/careers"
+    type: static
+    keywords: *default_keywords
+    subfield: "philosophy-of-mind"
+
+  # ── Continental / History of Philosophy ──────────────────────
+
+  - name: "Husserl Archives Leuven"
+    url: "https://hiw.kuleuven.be/hua"
+    type: static
+    keywords: *default_keywords
+    subfield: "continental-philosophy"
+
+  - name: "Hegel-Archiv Bochum"
+    url: "https://www.ruhr-uni-bochum.de/hegel-archiv/"
+    type: static
+    keywords: *default_keywords
+    subfield: "german-idealism"
+
+  - name: "Warwick Centre for Post-Kantian Philosophy"
+    url: "https://warwick.ac.uk/fac/soc/philosophy/research/centres/postkantian/"
+    type: static
+    keywords: *default_keywords
+    subfield: "german-idealism"
+
+  # ── News / Blog Aggregators ─────────────────────────────────
+
+  - name: "Philosophy of Physics Society"
+    url: "https://philosophyofphysics.org/news/"
+    type: wordpress
+    keywords: *default_keywords
+    subfield: "philosophy-of-physics"
+
+  - name: "Daily Nous Job Market"
+    url: "https://dailynous.com/category/philosophy-job-market/"
+    type: wordpress
+    keywords: *default_keywords
+    subfield: null

@@ -3,3 +3,4 @@ beautifulsoup4>=4.12
 pyyaml>=6.0
 fastapi>=0.100
 uvicorn>=0.23
+playwright>=1.40
