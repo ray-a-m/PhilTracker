@@ -34,6 +34,7 @@ def init_db():
             start_date TEXT DEFAULT '',
             aos_raw TEXT DEFAULT '',
             salary TEXT DEFAULT '',
+            secondary_urls TEXT DEFAULT '[]',
             date_scraped TEXT NOT NULL,
             date_first_seen TEXT NOT NULL,
             aos TEXT DEFAULT '[]',

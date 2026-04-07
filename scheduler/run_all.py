@@ -20,7 +20,8 @@ from scrapers.academic_jobs_wiki import AcademicJobsWikiScraper
 from scrapers.higheredjobs import HigherEdJobsScraper
 from scrapers.institutional.runner import run_institutional
 from tagger.keywords import tag_listings
-from backend.models import init_db, insert_listing, deactivate_expired
+from backend.models import init_db, deactivate_expired
+from backend.dedup import smart_insert
 
 # Registry of standalone scrapers
 SCRAPERS = {
@@ -97,18 +98,23 @@ def run_all(selected: list[str] | None = None):
     print(f"\nTagging {len(all_listings)} listings...")
     tagged = tag_listings(all_listings)
 
-    # Store in database
+    # Store in database with smart deduplication
     new_count = 0
     dup_count = 0
+    merged_count = 0
     for listing in tagged:
-        if insert_listing(listing):
+        result = smart_insert(listing)
+        if result == "new":
             new_count += 1
+        elif result == "merged":
+            merged_count += 1
         else:
             dup_count += 1
 
     print(f"\nDone! Date: {date.today().isoformat()}")
     print(f"  Total scraped: {len(all_listings)}")
     print(f"  New listings:  {new_count}")
+    print(f"  Merged:        {merged_count}")
     print(f"  Duplicates:    {dup_count}")
 
     return all_listings
