@@ -26,6 +26,62 @@ default_keywords: &default_keywords
 
 sites:
 
+  # ── Job Aggregators ─────────────────────────────────────────
+
+  - name: "EURAXESS"
+    url: "https://euraxess.ec.europa.eu/jobs/search/field_research_field/philosophy-21"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "jobs.ac.uk Philosophy"
+    url: "https://www.jobs.ac.uk/search/?keywords=philosophy"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Academic Positions Philosophy"
+    url: "https://academicpositions.com/jobs/position/post-doc/field/philosophy"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "ApplyKite Philosophy"
+    url: "https://www.applykite.com/search/positions/postdoc/all/philosophy"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Indeed Philosophy Postdoctoral"
+    url: "https://www.indeed.com/q-philosophy-postdoctoral-jobs.html"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "ScholarshipDB Philosophy Postdoc"
+    url: "http://scholarshipdb.net/Philosophy-scholarships/Program-Postdoctoral"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Fordham Fellowship List"
+    url: "https://www.fordham.edu/academics/departments/philosophy/graduate/resources-for-students/fellowship-and-postdoctoral-opportunities/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Fordham External Funding"
+    url: "https://www.fordham.edu/academics/departments/philosophy/graduate/resources-for-students/external-funding/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "jobsinphilosophy.org Europe"
+    url: "http://jobsinphilosophy.org/lists/europe"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
   # ── Philosophy of Physics / Foundations ──────────────────────
 
   - name: "Geneva Symmetry Group"
@@ -64,8 +120,26 @@ sites:
     keywords: *default_keywords
     subfield: "philosophy-of-physics"
 
-  - name: "Rutgers Philosophy (foundations)"
+  - name: "Rutgers Foundations"
     url: "https://philosophy.rutgers.edu/news"
+    type: static
+    keywords: *default_keywords
+    subfield: "philosophy-of-physics"
+
+  - name: "UCI LPS"
+    url: "https://www.lps.uci.edu/news/"
+    type: static
+    keywords: *default_keywords
+    subfield: "philosophy-of-physics"
+
+  - name: "Western Ontario Phil Physics"
+    url: "https://www.uwo.ca/philosophy/research/index.html"
+    type: static
+    keywords: *default_keywords
+    subfield: "philosophy-of-physics"
+
+  - name: "London Institute Philosophy of Physics"
+    url: "https://philosophy.sas.ac.uk/"
     type: static
     keywords: *default_keywords
     subfield: "philosophy-of-physics"
@@ -139,7 +213,7 @@ sites:
     keywords: *default_keywords
     subfield: "philosophy-of-science"
 
-  - name: "Helsinki Philosophy of Science"
+  - name: "Helsinki Theoretical Philosophy"
     url: "https://www.helsinki.fi/en/researchgroups/theoretical-philosophy"
     type: static
     keywords: *default_keywords
@@ -151,25 +225,43 @@ sites:
     keywords: *default_keywords
     subfield: "philosophy-of-science"
 
-  - name: "Toronto HPS"
+  - name: "Toronto IHPST"
     url: "https://hps.utoronto.ca/news/"
     type: static
     keywords: *default_keywords
     subfield: "history-and-philosophy-of-science"
 
-  - name: "Sydney Centre Foundations of Science"
+  - name: "Sydney Foundations of Science"
     url: "https://www.sydney.edu.au/arts/our-research/centres-institutes-and-groups/sydney-centre-for-the-foundations-of-science.html"
     type: static
     keywords: *default_keywords
     subfield: "philosophy-of-science"
 
-  - name: "Hannover FARE group"
+  - name: "Hannover Philosophy"
     url: "https://www.philos.uni-hannover.de/en/research/research-groups/"
     type: static
     keywords: *default_keywords
     subfield: "philosophy-of-science"
 
-  # ── Formal / Mathematical Philosophy ────────────────────────
+  - name: "Columbia Science and Society"
+    url: "https://scienceandsociety.columbia.edu/"
+    type: static
+    keywords: *default_keywords
+    subfield: "philosophy-of-science"
+
+  - name: "CFCUL Lisbon"
+    url: "https://cfcul.ciencias.ulisboa.pt/en/"
+    type: static
+    keywords: *default_keywords
+    subfield: "philosophy-of-science"
+
+  - name: "Leibniz Hannover Phil of Science"
+    url: "https://www.fiph.de/en/"
+    type: static
+    keywords: *default_keywords
+    subfield: "philosophy-of-science"
+
+  # ── Formal / Mathematical Philosophy & Logic ────────────────
 
   - name: "MCMP Munich"
     url: "https://www.mcmp.philosophie.uni-muenchen.de/about/open_pos/index.html"
@@ -195,14 +287,20 @@ sites:
     keywords: *default_keywords
     subfield: "philosophy-of-language"
 
-  - name: "Carnegie Mellon Pure and Applied Logic"
+  - name: "Carnegie Mellon Logic"
     url: "https://www.cmu.edu/dietrich/philosophy/research/logic.html"
     type: static
     keywords: *default_keywords
     subfield: "logic"
 
-  - name: "Leeds Logic Group"
+  - name: "Leeds Logic"
     url: "https://eps.leeds.ac.uk/maths-pure-mathematics/doc/logic"
+    type: static
+    keywords: *default_keywords
+    subfield: "logic"
+
+  - name: "IRIF Paris Logic"
+    url: "https://www.irif.fr/en/index"
     type: static
     keywords: *default_keywords
     subfield: "logic"
@@ -241,7 +339,7 @@ sites:
     keywords: *default_keywords
     subfield: "political-philosophy-ethics"
 
-  - name: "Georgetown Kennedy Institute"
+  - name: "Georgetown Kennedy Bioethics"
     url: "https://kennedyinstitute.georgetown.edu/"
     type: static
     keywords: *default_keywords
@@ -277,6 +375,42 @@ sites:
     keywords: *default_keywords
     subfield: "political-philosophy-ethics"
 
+  - name: "Notre Dame Ethics"
+    url: "https://ethicscenter.nd.edu/"
+    type: static
+    keywords: *default_keywords
+    subfield: "political-philosophy-ethics"
+
+  - name: "Brown PPE Center"
+    url: "https://ppe.brown.edu/postdoctoral-fellowships/application-information"
+    type: static
+    keywords: *default_keywords
+    subfield: "political-philosophy-ethics"
+
+  - name: "Nuffield Bioethics"
+    url: "https://www.nuffieldbioethics.org/"
+    type: static
+    keywords: *default_keywords
+    subfield: "political-philosophy-ethics"
+
+  - name: "Toronto Centre for Ethics"
+    url: "https://ethics.utoronto.ca/fellowships/"
+    type: static
+    keywords: *default_keywords
+    subfield: "political-philosophy-ethics"
+
+  - name: "Stanford McCoy Center Ethics"
+    url: "https://ethicsinsociety.stanford.edu/"
+    type: static
+    keywords: *default_keywords
+    subfield: "political-philosophy-ethics"
+
+  - name: "St Andrews CEPPA"
+    url: "https://www.st-andrews.ac.uk/ceppa/"
+    type: static
+    keywords: *default_keywords
+    subfield: "political-philosophy-ethics"
+
   # ── Epistemology ────────────────────────────────────────────
 
   - name: "Edinburgh Epistemology"
@@ -291,15 +425,21 @@ sites:
     keywords: *default_keywords
     subfield: "epistemology"
 
-  - name: "KU Leuven Epistemology"
+  - name: "KU Leuven Philosophy"
     url: "https://hiw.kuleuven.be/eng/study/vacancies"
+    type: static
+    keywords: *default_keywords
+    subfield: "epistemology"
+
+  - name: "Bochum Epistemology"
+    url: "https://www.ruhr-uni-bochum.de/philosophy/"
     type: static
     keywords: *default_keywords
     subfield: "epistemology"
 
   # ── Philosophy of Mind / Cognitive Science ───────────────────
 
-  - name: "NYU Center for Mind Brain Consciousness"
+  - name: "NYU Center Mind Brain Consciousness"
     url: "https://wp.nyu.edu/consciousness/"
     type: wordpress
     keywords: *default_keywords
@@ -311,26 +451,32 @@ sites:
     keywords: *default_keywords
     subfield: "philosophy-of-mind"
 
-  - name: "ANU Consciousness Group"
+  - name: "ANU Consciousness"
     url: "https://philosophy.cass.anu.edu.au/research/consciousness"
     type: static
     keywords: *default_keywords
     subfield: "philosophy-of-mind"
 
-  - name: "Monash Consciousness Centre"
+  - name: "Monash Consciousness"
     url: "https://www.monash.edu/turner-institute/consciousness-and-cognition"
     type: static
     keywords: *default_keywords
     subfield: "philosophy-of-mind"
 
-  - name: "Sussex Centre for Consciousness Science"
+  - name: "Sussex Consciousness Science"
     url: "https://www.sussex.ac.uk/research/centres/consciousness-science/"
     type: static
     keywords: *default_keywords
     subfield: "philosophy-of-mind"
 
-  - name: "Antwerp Centre Philosophical Psychology"
+  - name: "Antwerp Philosophical Psychology"
     url: "https://www.uantwerpen.be/en/research-groups/centre-for-philosophical-psychology/"
+    type: static
+    keywords: *default_keywords
+    subfield: "philosophy-of-mind"
+
+  - name: "Hamburg Philosophy of Mind"
+    url: "https://www.philosophie.uni-hamburg.de/en/"
     type: static
     keywords: *default_keywords
     subfield: "philosophy-of-mind"
@@ -349,13 +495,13 @@ sites:
     keywords: *default_keywords
     subfield: "german-idealism"
 
-  - name: "Warwick Centre for Post-Kantian Philosophy"
+  - name: "Warwick Post-Kantian"
     url: "https://warwick.ac.uk/fac/soc/philosophy/research/centres/postkantian/"
     type: static
     keywords: *default_keywords
     subfield: "german-idealism"
 
-  - name: "Wuppertal Hegel Research"
+  - name: "Wuppertal Hegel"
     url: "https://www.izth.uni-wuppertal.de/en/"
     type: static
     keywords: *default_keywords
@@ -369,6 +515,12 @@ sites:
 
   - name: "Heidelberg German Idealism"
     url: "https://www.philosophie.uni-heidelberg.de/en"
+    type: static
+    keywords: *default_keywords
+    subfield: "german-idealism"
+
+  - name: "Tübingen Idealism"
+    url: "https://uni-tuebingen.de/en/faculties/faculty-of-humanities/departments/philosophy/department/"
     type: static
     keywords: *default_keywords
     subfield: "german-idealism"
@@ -391,7 +543,7 @@ sites:
     keywords: *default_keywords
     subfield: "continental-philosophy"
 
-  - name: "Copenhagen Centre for Subjectivity Research"
+  - name: "Copenhagen Subjectivity Research"
     url: "https://cfs.ku.dk/"
     type: static
     keywords: *default_keywords
@@ -399,6 +551,30 @@ sites:
 
   - name: "Essex Phenomenology"
     url: "https://www.essex.ac.uk/centres-and-institutes/phenomenology/"
+    type: static
+    keywords: *default_keywords
+    subfield: "continental-philosophy"
+
+  - name: "DePaul Continental Philosophy"
+    url: "https://las.depaul.edu/academics/philosophy/"
+    type: static
+    keywords: *default_keywords
+    subfield: "continental-philosophy"
+
+  - name: "Duquesne Continental Philosophy"
+    url: "https://www.duq.edu/academics/schools/liberal-arts/departments-centers/philosophy"
+    type: static
+    keywords: *default_keywords
+    subfield: "continental-philosophy"
+
+  - name: "Stony Brook Continental Philosophy"
+    url: "https://www.stonybrook.edu/commcms/philosophy/"
+    type: static
+    keywords: *default_keywords
+    subfield: "continental-philosophy"
+
+  - name: "Memphis Philosophy"
+    url: "https://www.memphis.edu/philosophy/"
     type: static
     keywords: *default_keywords
     subfield: "continental-philosophy"
@@ -417,9 +593,15 @@ sites:
     keywords: *default_keywords
     subfield: "philosophy-of-language"
 
-  # ── Asian / Non-Western Philosophy ──────────────────────────
+  - name: "CSMN Oslo"
+    url: "https://www.hf.uio.no/csmn/english/"
+    type: static
+    keywords: *default_keywords
+    subfield: "philosophy-of-language"
 
-  - name: "NTU Singapore Philosophy"
+  # ── Asian / Non-Western / Global ────────────────────────────
+
+  - name: "NTU Singapore"
     url: "https://www.ntu.edu.sg/hass/about-us/philosophy"
     type: static
     keywords: *default_keywords
@@ -427,6 +609,30 @@ sites:
 
   - name: "Hawaii Philosophy"
     url: "https://manoa.hawaii.edu/philosophy/"
+    type: static
+    keywords: *default_keywords
+    subfield: "historical-philosophy"
+
+  - name: "Seoul National University Philosophy"
+    url: "https://humanities.snu.ac.kr/en/research/Institute-of-Philosophical-Research"
+    type: static
+    keywords: *default_keywords
+    subfield: "historical-philosophy"
+
+  - name: "Kyoto University Philosophy"
+    url: "https://www.bun.kyoto-u.ac.jp/english/"
+    type: static
+    keywords: *default_keywords
+    subfield: "historical-philosophy"
+
+  - name: "UNAM Mexico Philosophy"
+    url: "https://www.filosoficas.unam.mx/sitio/en"
+    type: static
+    keywords: *default_keywords
+    subfield: "historical-philosophy"
+
+  - name: "USP Brazil Philosophy"
+    url: "https://filosofia.fflch.usp.br/en"
     type: static
     keywords: *default_keywords
     subfield: "historical-philosophy"
@@ -465,6 +671,206 @@ sites:
 
   - name: "Edinburgh Philosophy"
     url: "https://www.ed.ac.uk/ppls/philosophy/vacancies"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Princeton Philosophy"
+    url: "https://philosophy.princeton.edu/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Stanford Philosophy"
+    url: "https://philosophy.stanford.edu/news"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Berkeley Philosophy"
+    url: "https://philosophy.berkeley.edu/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Harvard Philosophy"
+    url: "https://philosophy.fas.harvard.edu/news"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Columbia Philosophy"
+    url: "https://philosophy.columbia.edu/news"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Yale Philosophy"
+    url: "https://philosophy.yale.edu/news"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Chicago Philosophy"
+    url: "https://philosophy.uchicago.edu/news"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Cornell Philosophy"
+    url: "https://philosophy.cornell.edu/news-events"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Penn Philosophy"
+    url: "https://philosophy.sas.upenn.edu/news"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "USC Dornsife Philosophy"
+    url: "https://dornsife.usc.edu/philosophy/news/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "LSE Philosophy"
+    url: "https://www.lse.ac.uk/philosophy/vacancies/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "King's College London Philosophy"
+    url: "https://www.kcl.ac.uk/philosophy/vacancies"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "UCL Philosophy"
+    url: "https://www.ucl.ac.uk/philosophy/vacancies"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Manchester Philosophy"
+    url: "https://www.manchester.ac.uk/discover/news/?keywords=philosophy&school=philosophy"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Leeds Philosophy"
+    url: "https://ahc.leeds.ac.uk/philosophy/doc/vacancies"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Groningen Philosophy"
+    url: "https://www.rug.nl/filosofie/news/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Utrecht Philosophy"
+    url: "https://www.uu.nl/en/organisation/department-of-philosophy-and-religious-studies/vacancies"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Berlin Humboldt Philosophy"
+    url: "https://www.philosophie.hu-berlin.de/en/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Bonn Philosophy"
+    url: "https://www.philosophie.uni-bonn.de/en/news"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Frankfurt Philosophy"
+    url: "https://www.philosophie.uni-frankfurt.de/en"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  # ── Humanities / Interdisciplinary Fellowship Programs ──────
+
+  - name: "Columbia Society of Fellows"
+    url: "https://societyoffellows.columbia.edu/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Harvard Society of Fellows"
+    url: "https://socfell.fas.harvard.edu/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Michigan Society of Fellows"
+    url: "https://societyoffellows.umich.edu/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Cornell Society for the Humanities"
+    url: "https://as.cornell.edu/research/society-humanities"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Wissenschaftskolleg Berlin"
+    url: "https://www.wiko-berlin.de/en/fellowships"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "IAS Princeton"
+    url: "https://www.ias.edu/hssmembership"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Radcliffe Institute Harvard"
+    url: "https://www.radcliffe.harvard.edu/fellowship-program"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "ACLS Fellowships"
+    url: "https://www.acls.org/programs/acls-fellowship/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "NEH Fellowships"
+    url: "https://www.neh.gov/grants/research/fellowships"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Humboldt Foundation"
+    url: "https://www.humboldt-foundation.de/en/apply/sponsorship-programmes/humboldt-research-fellowship"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "British Academy Postdoc"
+    url: "https://www.thebritishacademy.ac.uk/funding/postdoctoral-fellowships/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Leverhulme Early Career"
+    url: "https://www.leverhulme.ac.uk/early-career-fellowships"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Marie Curie Fellowships"
+    url: "https://marie-sklodowska-curie-actions.ec.europa.eu/actions/postdoctoral-fellowships"
     type: static
     keywords: *default_keywords
     subfield: null
