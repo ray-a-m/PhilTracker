@@ -875,6 +875,128 @@ sites:
     keywords: *default_keywords
     subfield: null
 
+  # ── General Academic Fellowships (not philosophy-specific) ──
+
+  - name: "Fulbright US Scholar"
+    url: "https://fulbrightscholars.org/us-scholar-awards"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Fulbright Postdoctoral"
+    url: "https://foreign.fulbrightonline.org/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "SSRC Fellowships"
+    url: "https://www.ssrc.org/fellowships/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Mellon Fellowships"
+    url: "https://mellon.org/grants/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "ACLS Emerging Voices"
+    url: "https://www.acls.org/programs/emerging-voices/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "NEH Summer Stipends"
+    url: "https://www.neh.gov/grants/research/summer-stipends"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "DAAD Research Grants"
+    url: "https://www.daad.de/en/study-and-research-in-germany/scholarships/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Swiss NSF Postdoc Mobility"
+    url: "https://www.snf.ch/en/funding/careers/postdoc-mobility"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "NWO Veni Netherlands"
+    url: "https://www.nwo.nl/en/calls/nwo-talent-programme-veni"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "DFG Walter Benjamin"
+    url: "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/walter-benjamin"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Irish Research Council Postdoc"
+    url: "https://research.ie/funding/goipd/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Australian ARC DECRA"
+    url: "https://www.arc.gov.au/funding-research/funding-schemes/discovery-program/discovery-early-career-researcher-award-decra"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Canadian SSHRC Postdoc"
+    url: "https://www.sshrc-crsh.gc.ca/funding-financement/programs-programmes/fellowships/postdoctoral-postdoctorale-eng.aspx"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Volkswagen Foundation"
+    url: "https://www.volkswagenstiftung.de/en/funding"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Thyssen Foundation"
+    url: "https://www.fritz-thyssen-stiftung.de/en/funding/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Templeton Foundation"
+    url: "https://www.templeton.org/grants/grant-calendar"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "National Humanities Center"
+    url: "https://nationalhumanitiescenter.org/become-a-fellow/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Woodrow Wilson Center"
+    url: "https://www.wilsoncenter.org/fellowships-grants"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Stanford Humanities Center"
+    url: "https://shc.stanford.edu/fellowships"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Einstein Forum Potsdam"
+    url: "https://www.einsteinforum.de/about/fellowship/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
   # ── News / Blog Aggregators ─────────────────────────────────
 
   - name: "Philosophy of Physics Society"
