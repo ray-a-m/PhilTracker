@@ -51,6 +51,17 @@ def init_db():
             created_at TEXT NOT NULL
         );
 
+        CREATE TABLE IF NOT EXISTS user_profiles (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT DEFAULT '',
+            email TEXT DEFAULT '',
+            interests TEXT DEFAULT '[]',
+            preferred_types TEXT DEFAULT '[]',
+            preferred_locations TEXT DEFAULT '[]',
+            digest_frequency TEXT DEFAULT 'weekly',
+            created_at TEXT NOT NULL
+        );
+
         CREATE TABLE IF NOT EXISTS user_listing_status (
             user_id INTEGER,
             listing_id INTEGER,
