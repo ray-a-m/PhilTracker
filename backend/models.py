@@ -29,6 +29,11 @@ def init_db():
             source TEXT NOT NULL,
             deadline TEXT,
             description TEXT DEFAULT '',
+            location TEXT DEFAULT '',
+            duration TEXT DEFAULT '',
+            start_date TEXT DEFAULT '',
+            aos_raw TEXT DEFAULT '',
+            salary TEXT DEFAULT '',
             date_scraped TEXT NOT NULL,
             date_first_seen TEXT NOT NULL,
             aos TEXT DEFAULT '[]',
@@ -73,8 +78,9 @@ def insert_listing(listing) -> bool:
         conn.execute(
             """INSERT INTO listings
                (title, institution, url, source, deadline, description,
+                location, duration, start_date, aos_raw, salary,
                 date_scraped, date_first_seen, aos, listing_type)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 listing.title,
                 listing.institution,
@@ -82,6 +88,11 @@ def insert_listing(listing) -> bool:
                 listing.source,
                 listing.deadline,
                 listing.description,
+                listing.location,
+                listing.duration,
+                listing.start_date,
+                listing.aos_raw,
+                listing.salary,
                 listing.date_scraped,
                 date.today().isoformat(),
                 json.dumps(listing.aos),

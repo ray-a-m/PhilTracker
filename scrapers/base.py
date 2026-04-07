@@ -18,6 +18,11 @@ class Listing:
     source: str
     deadline: Optional[str] = None          # ISO format: "2026-04-08"
     description: str = ""
+    location: str = ""
+    duration: str = ""
+    start_date: str = ""
+    aos_raw: str = ""                       # raw AOS string from the source
+    salary: str = ""
     date_scraped: str = field(default_factory=lambda: date.today().isoformat())
     aos: list[str] = field(default_factory=list)  # filled by tagger, not scraper
     listing_type: str = "unknown"           # "job", "fellowship", "postdoc", "phd"

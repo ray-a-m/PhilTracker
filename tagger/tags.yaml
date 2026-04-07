@@ -1,27 +1,7 @@
-# PhilTracker subfield tags
+# PhilTracker subfield tags — comprehensive taxonomy
 # Each tag has a list of keywords/phrases that indicate relevance.
 # The tagger checks listing title + description against these.
 # Tags are not mutually exclusive — a listing can have many tags.
-
-philosophy-of-physics:
-  - "philosophy of physics"
-  - "foundations of physics"
-  - "quantum mechanics"
-  - "quantum gravity"
-  - "spacetime"
-  - "space-time"
-  - "philosophy of cosmology"
-  - "symmetry"
-  - "gauge theory"
-  - "general relativity"
-  - "quantum field theory"
-  - "quantum theory"
-  - "foundations of quantum"
-  - "philosophy of space"
-  - "philosophy of time"
-  - "statistical mechanics"
-  - "thermodynamics"
-  - "emergence in physics"
 
 philosophy-of-science:
   - "philosophy of science"
@@ -40,15 +20,34 @@ philosophy-of-science:
   - "scientific method"
   - "confirmation"
   - "evidence"
+  - "prediction"
+  - "unification"
 
-history-and-philosophy-of-science:
-  - "history and philosophy of science"
-  - "history of science"
-  - "HPS"
-  - "history of physics"
-  - "history of chemistry"
-  - "history of biology"
-  - "historical epistemology"
+philosophy-of-physics:
+  - "philosophy of physics"
+  - "foundations of physics"
+  - "quantum mechanics"
+  - "quantum gravity"
+  - "spacetime"
+  - "space-time"
+  - "philosophy of cosmology"
+  - "symmetry"
+  - "gauge theory"
+  - "general relativity"
+  - "quantum field theory"
+  - "quantum theory"
+  - "foundations of quantum"
+  - "statistical mechanics"
+  - "thermodynamics"
+  - "emergence in physics"
+  - "measurement problem"
+  - "entanglement"
+  - "Bell's theorem"
+  - "philosophy of space"
+  - "philosophy of time"
+  - "arrow of time"
+  - "determinism in physics"
+  - "philosophy of relativity"
 
 philosophy-of-biology:
   - "philosophy of biology"
@@ -58,6 +57,14 @@ philosophy-of-biology:
   - "philosophy of ecology"
   - "philosophy of genetics"
   - "developmental biology"
+  - "philosophy of neuroscience"
+  - "philosophy of medicine"
+  - "fitness"
+  - "adaptation"
+  - "biological function"
+  - "levels of selection"
+  - "gene"
+  - "organism"
 
 philosophy-of-chemistry:
   - "philosophy of chemistry"
@@ -65,6 +72,41 @@ philosophy-of-chemistry:
   - "molecular structure"
   - "periodic table"
   - "chemical bonding"
+  - "reduction in chemistry"
+  - "emergence in chemistry"
+
+philosophy-of-mathematics:
+  - "philosophy of mathematics"
+  - "mathematical practice"
+  - "foundations of mathematics"
+  - "mathematical explanation"
+  - "mathematical realism"
+  - "structuralism"
+  - "nominalism"
+  - "platonism"
+  - "set theory"
+  - "proof"
+
+philosophy-of-computing:
+  - "philosophy of AI"
+  - "philosophy of computing"
+  - "machine learning"
+  - "artificial intelligence"
+  - "computational"
+  - "philosophy of information"
+  - "philosophy of technology"
+  - "algorithmic"
+  - "explainability"
+
+history-and-philosophy-of-science:
+  - "history and philosophy of science"
+  - "history of science"
+  - "HPS"
+  - "history of physics"
+  - "history of chemistry"
+  - "history of biology"
+  - "historical epistemology"
+  - "history of philosophy of science"
 
 formal-epistemology:
   - "formal epistemology"
@@ -75,6 +117,8 @@ formal-epistemology:
   - "decision theory"
   - "formal methods"
   - "epistemic logic"
+  - "inductive logic"
+  - "confirmation theory"
 
 social-epistemology:
   - "social epistemology"
@@ -84,6 +128,9 @@ social-epistemology:
   - "disagreement"
   - "science communication"
   - "epistemic injustice"
+  - "collective epistemology"
+  - "peer disagreement"
+  - "expertise"
 
 metaphysics-of-science:
   - "metaphysics of science"
@@ -93,7 +140,11 @@ metaphysics-of-science:
   - "causal"
   - "counterfactual"
   - "structural realism"
-  - "ontic structural"
+  - "ontic structural realism"
+  - "powers"
+  - "modality"
+  - "necessity in science"
+  - "natural modality"
 
 german-idealism:
   - "german idealism"
@@ -106,27 +157,42 @@ german-idealism:
   - "philosophy of nature"
   - "absolute idealism"
   - "dialectic"
-
-philosophy-of-mathematics:
-  - "philosophy of mathematics"
-  - "mathematical practice"
-  - "foundations of mathematics"
-  - "mathematical explanation"
-  - "mathematical realism"
-  - "structuralism"
-
-philosophy-of-mind:
-  - "philosophy of mind"
-  - "consciousness"
-  - "mental causation"
-  - "intentionality"
-  - "perception"
+  - "phenomenology of spirit"
+  - "science of logic"
 
 logic:
   - "philosophical logic"
   - "philosophy of logic"
   - "non-classical logic"
   - "modal logic"
+  - "paraconsistent logic"
+  - "relevant logic"
+  - "proof theory"
+  - "model theory"
+
+epistemology:
+  - "epistemology"
+  - "knowledge"
+  - "justification"
+  - "skepticism"
+  - "reliabilism"
+  - "virtue epistemology"
+  - "a priori"
+  - "perception"
+  - "epistemic normativity"
+
+metaphysics:
+  - "metaphysics"
+  - "ontology"
+  - "mereology"
+  - "persistence"
+  - "personal identity"
+  - "free will"
+  - "time"
+  - "modality"
+  - "possible worlds"
+  - "grounding"
+  - "fundamentality"
 
 ethics-of-science:
   - "values in science"
@@ -135,11 +201,95 @@ ethics-of-science:
   - "research ethics"
   - "science and values"
   - "science policy"
+  - "objectivity"
+  - "value-free ideal"
+  - "inductive risk"
 
-philosophy-of-computing:
-  - "philosophy of AI"
-  - "philosophy of computing"
-  - "machine learning"
-  - "artificial intelligence"
-  - "computational"
-  - "philosophy of information"
+philosophy-of-social-science:
+  - "philosophy of social science"
+  - "philosophy of economics"
+  - "rational choice"
+  - "social ontology"
+  - "philosophy of psychology"
+  - "philosophy of psychiatry"
+  - "explanation in social science"
+
+philosophy-of-mind:
+  - "philosophy of mind"
+  - "consciousness"
+  - "mental causation"
+  - "intentionality"
+  - "perception"
+  - "qualia"
+  - "functionalism"
+  - "dualism"
+  - "physicalism"
+  - "phenomenal consciousness"
+
+political-philosophy-ethics:
+  - "political philosophy"
+  - "ethics"
+  - "normative ethics"
+  - "applied ethics"
+  - "metaethics"
+  - "moral realism"
+  - "consequentialism"
+  - "deontology"
+  - "virtue ethics"
+  - "justice"
+  - "rights"
+
+aesthetics:
+  - "aesthetics"
+  - "philosophy of art"
+  - "philosophy of music"
+  - "philosophy of literature"
+  - "philosophy of film"
+  - "beauty"
+  - "taste"
+  - "artistic expression"
+
+philosophy-of-language:
+  - "philosophy of language"
+  - "reference"
+  - "meaning"
+  - "semantics"
+  - "pragmatics"
+  - "speech acts"
+  - "truth"
+  - "vagueness"
+
+philosophy-of-religion:
+  - "philosophy of religion"
+  - "existence of god"
+  - "problem of evil"
+  - "religious epistemology"
+  - "faith and reason"
+
+historical-philosophy:
+  - "ancient philosophy"
+  - "medieval philosophy"
+  - "early modern philosophy"
+  - "modern philosophy"
+  - "Plato"
+  - "Aristotle"
+  - "Descartes"
+  - "Leibniz"
+  - "Hume"
+  - "Spinoza"
+  - "Locke"
+  - "Berkeley"
+
+continental-philosophy:
+  - "continental philosophy"
+  - "phenomenology"
+  - "existentialism"
+  - "hermeneutics"
+  - "critical theory"
+  - "Husserl"
+  - "Heidegger"
+  - "Merleau-Ponty"
+  - "Derrida"
+  - "Foucault"
+  - "Nietzsche"
+  - "Marx"
