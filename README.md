@@ -33,37 +33,31 @@ PhilTracker fixes this by:
 
 ### Institutional sites (configurable — `scrapers/institutional/config.yaml`)
 
-Add new sites by editing the config file — no new code needed.
+Add new sites by editing the config file — no new code needed. Currently **72 sites** across all subfields:
 
-| Site | Subfield | Type |
-|---|---|---|
-| Geneva Symmetry Group | Philosophy of Physics | WordPress |
-| Geneva Symmetry Group Blog | Philosophy of Physics | WordPress |
-| Cambridge Philosophy of Physics | Philosophy of Physics | Static |
-| Bonn Lichtenberg Group | HPS | Static |
-| Pittsburgh Center for Phil of Science | Philosophy of Science | WordPress |
-| Rotman Institute | Philosophy of Science | WordPress |
-| Minnesota Center for Phil of Science | Philosophy of Science | Static |
-| CPNSS (LSE) | Philosophy of Science | Static |
-| Descartes Centre (Utrecht) | HPS | Static |
-| Tilburg TiLPS | Philosophy of Science | Static |
-| MCMP Munich | Formal Philosophy | Static |
-| ILLC Amsterdam | Logic | Static |
-| Arché (St Andrews) | Formal Philosophy | Static |
-| LOGOS (Barcelona) | Philosophy of Language | Static |
-| Konrad Lorenz Institute | Philosophy of Biology | Static |
-| Egenis (Exeter) | Philosophy of Biology | Static |
-| Oxford Uehiro Centre | Ethics | Static |
-| Princeton Center for Human Values | Ethics | Static |
-| Harvard Safra Center for Ethics | Ethics | Static |
-| Georgetown Kennedy Institute | Ethics | Static |
-| NYU Center for Mind Brain Consciousness | Philosophy of Mind | WordPress |
-| Berlin School of Mind and Brain | Philosophy of Mind | Static |
-| Husserl Archives (Leuven) | Continental | Static |
-| Hegel-Archiv (Bochum) | German Idealism | Static |
-| Warwick Post-Kantian Philosophy | German Idealism | Static |
-| Philosophy of Physics Society | Philosophy of Physics | WordPress |
-| Daily Nous Job Market | General | WordPress |
+**Philosophy of Physics / Foundations (7):** Geneva Symmetry Group, Geneva Symmetry Group Blog, Cambridge Philosophy of Physics, Bonn Lichtenberg Group, Oxford Philosophy of Physics, Perimeter Institute, Rutgers Philosophy (foundations)
+
+**Philosophy of Science (21):** Pittsburgh Center for Phil of Science, Rotman Institute, Minnesota Center for Phil of Science, CPNSS (LSE), Descartes Centre (Utrecht), Tilburg TiLPS, IHPST Paris, MPIWG Berlin, Bristol Philosophy of Science, Ghent Centre for Logic and Phil of Science, Vienna Circle Institute, Helsinki Philosophy of Science, ANU School of Philosophy, Toronto HPS, Sydney Centre Foundations of Science, Hannover FARE group
+
+**Formal / Mathematical Philosophy & Logic (6):** MCMP Munich, ILLC Amsterdam, Arché (St Andrews), LOGOS (Barcelona), Carnegie Mellon Pure and Applied Logic, Leeds Logic Group
+
+**Philosophy of Biology (2):** Konrad Lorenz Institute, Egenis (Exeter)
+
+**Ethics / Political (9):** Oxford Uehiro Centre, Princeton Center for Human Values, Harvard Safra Center for Ethics, Georgetown Kennedy Institute, Oxford Institute for Ethics in AI, Cambridge CSER, Hastings Center, Stanford HAI, Yale EPE
+
+**Epistemology (3):** Edinburgh Epistemology, Cologne Epistemology, KU Leuven Epistemology
+
+**Philosophy of Mind / Cognitive Science (6):** NYU Center for Mind Brain Consciousness, Berlin School of Mind and Brain, ANU Consciousness Group, Monash Consciousness Centre, Sussex Centre for Consciousness Science, Antwerp Centre Philosophical Psychology
+
+**Continental / History of Philosophy (8):** Husserl Archives (Leuven), Hegel-Archiv (Bochum), Warwick Post-Kantian Philosophy, Wuppertal Hegel Research, Jena German Idealism, Heidelberg German Idealism, Villanova Phenomenology, New School Philosophy, Freiburg Husserl-Archiv, Copenhagen Centre for Subjectivity Research, Essex Phenomenology
+
+**Philosophy of Language (3):** LOGOS (Barcelona), MIT Linguistics and Philosophy, Institut Jean Nicod Paris
+
+**Asian / Non-Western Philosophy (2):** NTU Singapore Philosophy, Hawaii Philosophy
+
+**Major Departments (6):** NYU Philosophy, Pittsburgh HPS, Michigan Philosophy, Oxford Faculty of Philosophy, Cambridge Faculty of Philosophy, Edinburgh Philosophy
+
+**News / Blog Aggregators (2):** Philosophy of Physics Society, Daily Nous Job Market
 
 Want to add a source? See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
