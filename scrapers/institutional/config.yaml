@@ -795,52 +795,34 @@ sites:
     keywords: *default_keywords
     subfield: null
 
-  # ── Humanities / Interdisciplinary Fellowship Programs ──────
+  # ── US Government Funding ────────────────────────────────────
 
-  - name: "Columbia Society of Fellows"
-    url: "https://societyoffellows.columbia.edu/"
+  - name: "NSF SBE Postdoctoral Fellowships"
+    url: "https://www.nsf.gov/funding/opportunities/sprf-sbe-postdoctoral-research-fellowships"
     type: static
     keywords: *default_keywords
     subfield: null
 
-  - name: "Harvard Society of Fellows"
-    url: "https://socfell.fas.harvard.edu/"
+  - name: "NSF Science Technology Studies"
+    url: "https://www.nsf.gov/funding/opportunities/science-technology-and-society"
     type: static
     keywords: *default_keywords
     subfield: null
 
-  - name: "Michigan Society of Fellows"
-    url: "https://societyoffellows.umich.edu/"
+  - name: "NSF Funding Search"
+    url: "https://www.nsf.gov/funding"
     type: static
     keywords: *default_keywords
     subfield: null
 
-  - name: "Cornell Society for the Humanities"
-    url: "https://as.cornell.edu/research/society-humanities"
+  - name: "NSF Postdoc Opportunities"
+    url: "https://www.nsf.gov/funding/postdocs"
     type: static
     keywords: *default_keywords
     subfield: null
 
-  - name: "Wissenschaftskolleg Berlin"
-    url: "https://www.wiko-berlin.de/en/fellowships"
-    type: static
-    keywords: *default_keywords
-    subfield: null
-
-  - name: "IAS Princeton"
-    url: "https://www.ias.edu/hssmembership"
-    type: static
-    keywords: *default_keywords
-    subfield: null
-
-  - name: "Radcliffe Institute Harvard"
-    url: "https://www.radcliffe.harvard.edu/fellowship-program"
-    type: static
-    keywords: *default_keywords
-    subfield: null
-
-  - name: "ACLS Fellowships"
-    url: "https://www.acls.org/programs/acls-fellowship/"
+  - name: "Grants.gov"
+    url: "https://www.grants.gov/search-grants.html"
     type: static
     keywords: *default_keywords
     subfield: null
@@ -851,8 +833,106 @@ sites:
     keywords: *default_keywords
     subfield: null
 
-  - name: "Humboldt Foundation"
-    url: "https://www.humboldt-foundation.de/en/apply/sponsorship-programmes/humboldt-research-fellowship"
+  - name: "NEH Summer Stipends"
+    url: "https://www.neh.gov/grants/research/summer-stipends"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  # ── European Government / Council Funding ───────────────────
+
+  - name: "ERC Starting Grants"
+    url: "https://erc.europa.eu/apply-grant/starting-grant"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "ERC Consolidator Grants"
+    url: "https://erc.europa.eu/apply-grant/consolidator-grant"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Marie Curie Postdoctoral"
+    url: "https://marie-sklodowska-curie-actions.ec.europa.eu/actions/postdoctoral-fellowships"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "FWF Austria Lise Meitner"
+    url: "https://www.fwf.ac.at/en/research-funding/fwf-programmes/meitner-programme"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "FWF Austria Erwin Schrödinger"
+    url: "https://www.fwf.ac.at/en/research-funding/fwf-programmes/schroedinger-programme"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "DFG Emmy Noether"
+    url: "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/emmy-noether"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "DFG Walter Benjamin"
+    url: "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/walter-benjamin"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "NWO Veni Netherlands"
+    url: "https://www.nwo.nl/en/calls/nwo-talent-programme-veni"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "NWO Vidi Netherlands"
+    url: "https://www.nwo.nl/en/calls/nwo-talent-programme-vidi"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "SNSF Swiss Postdoc Mobility"
+    url: "https://www.snf.ch/en/funding/careers/postdoc-mobility"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "SNSF Ambizione"
+    url: "https://www.snf.ch/en/funding/careers/ambizione"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "ANR France"
+    url: "https://anr.fr/en/call-for-proposals-details/call/generic-call-for-proposals-2026/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Irish Research Council"
+    url: "https://research.ie/funding/goipd/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Swedish Research Council"
+    url: "https://www.vr.se/english/calls-and-decisions.html"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Israel Science Foundation"
+    url: "https://www.isf.org.il/english/callsForProposals.aspx"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "DAAD Research Grants"
+    url: "https://www.daad.de/en/study-and-research-in-germany/scholarships/"
     type: static
     keywords: *default_keywords
     subfield: null
@@ -869,13 +949,81 @@ sites:
     keywords: *default_keywords
     subfield: null
 
-  - name: "Marie Curie Fellowships"
-    url: "https://marie-sklodowska-curie-actions.ec.europa.eu/actions/postdoctoral-fellowships"
+  # ── Non-US / Non-European Government Funding ────────────────
+
+  - name: "Australian ARC DECRA"
+    url: "https://www.arc.gov.au/funding-research/funding-schemes/discovery-program/discovery-early-career-researcher-award-decra"
     type: static
     keywords: *default_keywords
     subfield: null
 
-  # ── General Academic Fellowships (not philosophy-specific) ──
+  - name: "Canadian SSHRC Postdoc"
+    url: "https://www.sshrc-crsh.gc.ca/funding-financement/programs-programmes/fellowships/postdoctoral-postdoctorale-eng.aspx"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "JSPS Japan Postdoctoral"
+    url: "https://www.jsps.go.jp/english/e-fellow/index.html"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  # ── Private Foundations ─────────────────────────────────────
+
+  - name: "Templeton Foundation"
+    url: "https://www.templeton.org/grants/grant-calendar"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Volkswagen Foundation"
+    url: "https://www.volkswagenstiftung.de/en/funding"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Thyssen Foundation"
+    url: "https://www.fritz-thyssen-stiftung.de/en/funding/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Alfred P Sloan Foundation"
+    url: "https://sloan.org/programs"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Spencer Foundation"
+    url: "https://www.spencer.org/grant-types"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Berggruen Institute"
+    url: "https://www.berggruen.org/fellowship-program/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Whiting Foundation"
+    url: "https://www.whiting.org/scholars"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Humane Studies Fellowship"
+    url: "https://www.theihs.org/funding/humane-studies-fellowship/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Humboldt Foundation"
+    url: "https://www.humboldt-foundation.de/en/apply/sponsorship-programmes/humboldt-research-fellowship"
+    type: static
+    keywords: *default_keywords
+    subfield: null
 
   - name: "Fulbright US Scholar"
     url: "https://fulbrightscholars.org/us-scholar-awards"
@@ -901,80 +1049,178 @@ sites:
     keywords: *default_keywords
     subfield: null
 
+  - name: "ACLS Fellowships"
+    url: "https://www.acls.org/programs/acls-fellowship/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
   - name: "ACLS Emerging Voices"
     url: "https://www.acls.org/programs/emerging-voices/"
     type: static
     keywords: *default_keywords
     subfield: null
 
-  - name: "NEH Summer Stipends"
-    url: "https://www.neh.gov/grants/research/summer-stipends"
+  # ── Institutes for Advanced Study ───────────────────────────
+
+  - name: "IAS Princeton"
+    url: "https://www.ias.edu/hssmembership"
     type: static
     keywords: *default_keywords
     subfield: null
 
-  - name: "DAAD Research Grants"
-    url: "https://www.daad.de/en/study-and-research-in-germany/scholarships/"
+  - name: "Wissenschaftskolleg Berlin"
+    url: "https://www.wiko-berlin.de/en/fellowships"
     type: static
     keywords: *default_keywords
     subfield: null
 
-  - name: "Swiss NSF Postdoc Mobility"
-    url: "https://www.snf.ch/en/funding/careers/postdoc-mobility"
+  - name: "NIAS Netherlands"
+    url: "https://nias.knaw.nl/fellowships/"
     type: static
     keywords: *default_keywords
     subfield: null
 
-  - name: "NWO Veni Netherlands"
-    url: "https://www.nwo.nl/en/calls/nwo-talent-programme-veni"
+  - name: "Swedish Collegium SCAS"
+    url: "https://www.swedishcollegium.se/subpage.php?id=2"
     type: static
     keywords: *default_keywords
     subfield: null
 
-  - name: "DFG Walter Benjamin"
-    url: "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/walter-benjamin"
+  - name: "ZiF Bielefeld"
+    url: "https://www.uni-bielefeld.de/zif/e/applications/"
     type: static
     keywords: *default_keywords
     subfield: null
 
-  - name: "Irish Research Council Postdoc"
-    url: "https://research.ie/funding/goipd/"
+  - name: "Radcliffe Institute Harvard"
+    url: "https://www.radcliffe.harvard.edu/fellowship-program"
     type: static
     keywords: *default_keywords
     subfield: null
 
-  - name: "Australian ARC DECRA"
-    url: "https://www.arc.gov.au/funding-research/funding-schemes/discovery-program/discovery-early-career-researcher-award-decra"
-    type: static
-    keywords: *default_keywords
-    subfield: null
-
-  - name: "Canadian SSHRC Postdoc"
-    url: "https://www.sshrc-crsh.gc.ca/funding-financement/programs-programmes/fellowships/postdoctoral-postdoctorale-eng.aspx"
-    type: static
-    keywords: *default_keywords
-    subfield: null
-
-  - name: "Volkswagen Foundation"
-    url: "https://www.volkswagenstiftung.de/en/funding"
-    type: static
-    keywords: *default_keywords
-    subfield: null
-
-  - name: "Thyssen Foundation"
-    url: "https://www.fritz-thyssen-stiftung.de/en/funding/"
-    type: static
-    keywords: *default_keywords
-    subfield: null
-
-  - name: "Templeton Foundation"
-    url: "https://www.templeton.org/grants/grant-calendar"
+  - name: "CASBS Stanford"
+    url: "https://casbs.stanford.edu/fellowships"
     type: static
     keywords: *default_keywords
     subfield: null
 
   - name: "National Humanities Center"
     url: "https://nationalhumanitiescenter.org/become-a-fellow/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Collegium de Lyon"
+    url: "https://www.collegium-lyon.fr/en/applications"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Helsinki Collegium"
+    url: "https://www.helsinki.fi/en/helsinki-collegium-advanced-studies/fellowships"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Freiburg Institute for Advanced Studies"
+    url: "https://www.frias.uni-freiburg.de/en/funding-programmes"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Israel Institute for Advanced Studies"
+    url: "https://ias.huji.ac.il/fellowships"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Aarhus Institute for Advanced Studies"
+    url: "https://aias.au.dk/opportunities-at-aias"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Durham Institute for Advanced Study"
+    url: "https://www.durham.ac.uk/institutes-and-centres/institute-of-advanced-study/fellowships/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Leuven Institute for Advanced Study"
+    url: "https://www.kuleuven.be/lias/fellowships"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Budapest Collegium"
+    url: "https://ias.ceu.edu/apply"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Italian Academy Columbia"
+    url: "https://italianacademy.columbia.edu/fellowships"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  # ── University Societies of Fellows ─────────────────────────
+
+  - name: "Columbia Society of Fellows"
+    url: "https://societyoffellows.columbia.edu/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Harvard Society of Fellows"
+    url: "https://socfell.fas.harvard.edu/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Michigan Society of Fellows"
+    url: "https://societyoffellows.umich.edu/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "Cornell Society for the Humanities"
+    url: "https://as.cornell.edu/research/society-humanities"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  # ── Grant Search Aggregators ────────────────────────────────
+
+  - name: "GrantForward"
+    url: "https://www.grantforward.com/index"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "UCLA GRAPES"
+    url: "https://grad.ucla.edu/funding/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "ProFellow"
+    url: "https://www.profellow.com/fellowships/"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  - name: "ECRcentral Funding"
+    url: "https://ecrcentral.org/fundings"
+    type: static
+    keywords: *default_keywords
+    subfield: null
+
+  # ── Interdisciplinary Research Centers ──────────────────────
+
+  - name: "Santa Fe Institute"
+    url: "https://www.santafe.edu/engage/learn/opportunities"
     type: static
     keywords: *default_keywords
     subfield: null
