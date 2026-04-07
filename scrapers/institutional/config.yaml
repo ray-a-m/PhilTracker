@@ -28,11 +28,13 @@ sites:
 
   # ── Job Aggregators ─────────────────────────────────────────
 
-  - name: "EURAXESS"
-    url: "https://euraxess.ec.europa.eu/jobs/search/field_research_field/philosophy-21"
-    type: static
-    keywords: *default_keywords
-    subfield: null
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "EURAXESS"
+  # url: "https://euraxess.ec.europa.eu/jobs/search/field_research_field/philosophy-21"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: null
+
 
   - name: "jobs.ac.uk Philosophy"
     url: "https://www.jobs.ac.uk/search/?keywords=philosophy"
@@ -52,11 +54,13 @@ sites:
     keywords: *default_keywords
     subfield: null
 
-  - name: "Indeed Philosophy Postdoctoral"
-    url: "https://www.indeed.com/q-philosophy-postdoctoral-jobs.html"
-    type: static
-    keywords: *default_keywords
-    subfield: null
+  # BROKEN (403 bot protection) — commented out 2026-04-07
+  # - name: "Indeed Philosophy Postdoctoral"
+  # url: "https://www.indeed.com/q-philosophy-postdoctoral-jobs.html"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: null
+
 
   - name: "ScholarshipDB Philosophy Postdoc"
     url: "http://scholarshipdb.net/Philosophy-scholarships/Program-Postdoctoral"
@@ -96,23 +100,29 @@ sites:
     keywords: *default_keywords
     subfield: "philosophy-of-physics"
 
-  - name: "Cambridge Philosophy of Physics"
-    url: "https://www.phi.cam.ac.uk/news"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-physics"
+  # BROKEN (DNS failure) — commented out 2026-04-07
+  # - name: "Cambridge Philosophy of Physics"
+  # url: "https://www.phi.cam.ac.uk/news"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-physics"
 
-  - name: "Bonn Lichtenberg Group"
-    url: "https://www.hppd.uni-bonn.de/"
-    type: static
-    keywords: *default_keywords
-    subfield: "history-and-philosophy-of-science"
 
-  - name: "Oxford Philosophy of Physics"
-    url: "https://www.philosophy.ox.ac.uk/research/philosophy-physics"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-physics"
+  # BROKEN (DNS failure) — commented out 2026-04-07
+  # - name: "Bonn Lichtenberg Group"
+  # url: "https://www.hppd.uni-bonn.de/"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "history-and-philosophy-of-science"
+
+
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "Oxford Philosophy of Physics"
+  # url: "https://www.philosophy.ox.ac.uk/research/philosophy-physics"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-physics"
+
 
   - name: "Perimeter Institute"
     url: "https://perimeterinstitute.ca/careers"
@@ -120,17 +130,21 @@ sites:
     keywords: *default_keywords
     subfield: "philosophy-of-physics"
 
-  - name: "Rutgers Foundations"
-    url: "https://philosophy.rutgers.edu/news"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-physics"
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "Rutgers Foundations"
+  # url: "https://philosophy.rutgers.edu/news"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-physics"
 
-  - name: "UCI LPS"
-    url: "https://www.lps.uci.edu/news/"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-physics"
+
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "UCI LPS"
+  # url: "https://www.lps.uci.edu/news/"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-physics"
+
 
   - name: "Western Ontario Phil Physics"
     url: "https://www.uwo.ca/philosophy/research/index.html"
@@ -171,11 +185,13 @@ sites:
     keywords: *default_keywords
     subfield: "philosophy-of-science"
 
-  - name: "Descartes Centre Utrecht"
-    url: "https://www.uu.nl/en/research/descartes-centre"
-    type: static
-    keywords: *default_keywords
-    subfield: "history-and-philosophy-of-science"
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "Descartes Centre Utrecht"
+  # url: "https://www.uu.nl/en/research/descartes-centre"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "history-and-philosophy-of-science"
+
 
   - name: "Tilburg TiLPS"
     url: "https://www.tilburguniversity.edu/research/institutes-and-research-groups/tilps"
@@ -183,53 +199,69 @@ sites:
     keywords: *default_keywords
     subfield: "philosophy-of-science"
 
-  - name: "IHPST Paris"
-    url: "https://www.ihpst.cnrs.fr/en"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-science"
+  # BROKEN (DNS failure) — commented out 2026-04-07
+  # - name: "IHPST Paris"
+  # url: "https://www.ihpst.cnrs.fr/en"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-science"
 
-  - name: "MPIWG Berlin"
-    url: "https://www.mpiwg-berlin.mpg.de/opportunities"
-    type: static
-    keywords: *default_keywords
-    subfield: "history-and-philosophy-of-science"
 
-  - name: "Bristol Philosophy of Science"
-    url: "https://www.bristol.ac.uk/philosophy/research/philosophy-of-science/"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-science"
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "MPIWG Berlin"
+  # url: "https://www.mpiwg-berlin.mpg.de/opportunities"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "history-and-philosophy-of-science"
 
-  - name: "Ghent Centre for Logic and Phil of Science"
-    url: "https://www.ugent.be/lw/clps/en"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-science"
 
-  - name: "Vienna Circle Institute"
-    url: "https://ivc.philo.at/"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-science"
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "Bristol Philosophy of Science"
+  # url: "https://www.bristol.ac.uk/philosophy/research/philosophy-of-science/"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-science"
 
-  - name: "Helsinki Theoretical Philosophy"
-    url: "https://www.helsinki.fi/en/researchgroups/theoretical-philosophy"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-science"
 
-  - name: "ANU School of Philosophy"
-    url: "https://philosophy.cass.anu.edu.au/news-events"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-science"
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "Ghent Centre for Logic and Phil of Science"
+  # url: "https://www.ugent.be/lw/clps/en"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-science"
 
-  - name: "Toronto IHPST"
-    url: "https://hps.utoronto.ca/news/"
-    type: static
-    keywords: *default_keywords
-    subfield: "history-and-philosophy-of-science"
+
+  # BROKEN (DNS failure) — commented out 2026-04-07
+  # - name: "Vienna Circle Institute"
+  # url: "https://ivc.philo.at/"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-science"
+
+
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "Helsinki Theoretical Philosophy"
+  # url: "https://www.helsinki.fi/en/researchgroups/theoretical-philosophy"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-science"
+
+
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "ANU School of Philosophy"
+  # url: "https://philosophy.cass.anu.edu.au/news-events"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-science"
+
+
+  # BROKEN (SSL cert expired) — commented out 2026-04-07
+  # - name: "Toronto IHPST"
+  # url: "https://hps.utoronto.ca/news/"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "history-and-philosophy-of-science"
+
 
   - name: "Sydney Foundations of Science"
     url: "https://www.sydney.edu.au/arts/our-research/centres-institutes-and-groups/sydney-centre-for-the-foundations-of-science.html"
@@ -237,29 +269,37 @@ sites:
     keywords: *default_keywords
     subfield: "philosophy-of-science"
 
-  - name: "Hannover Philosophy"
-    url: "https://www.philos.uni-hannover.de/en/research/research-groups/"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-science"
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "Hannover Philosophy"
+  # url: "https://www.philos.uni-hannover.de/en/research/research-groups/"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-science"
 
-  - name: "Columbia Science and Society"
-    url: "https://scienceandsociety.columbia.edu/"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-science"
 
-  - name: "CFCUL Lisbon"
-    url: "https://cfcul.ciencias.ulisboa.pt/en/"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-science"
+  # BROKEN (403 forbidden) — commented out 2026-04-07
+  # - name: "Columbia Science and Society"
+  # url: "https://scienceandsociety.columbia.edu/"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-science"
 
-  - name: "Leibniz Hannover Phil of Science"
-    url: "https://www.fiph.de/en/"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-science"
+
+  # BROKEN (SSL cert expired) — commented out 2026-04-07
+  # - name: "CFCUL Lisbon"
+  # url: "https://cfcul.ciencias.ulisboa.pt/en/"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-science"
+
+
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "Leibniz Hannover Phil of Science"
+  # url: "https://www.fiph.de/en/"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-science"
+
 
   # ── Formal / Mathematical Philosophy & Logic ────────────────
 
@@ -269,17 +309,21 @@ sites:
     keywords: *default_keywords
     subfield: "formal-epistemology"
 
-  - name: "ILLC Amsterdam"
-    url: "https://www.illc.uva.nl/NewsandEvents/Vacancies/"
-    type: static
-    keywords: *default_keywords
-    subfield: "logic"
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "ILLC Amsterdam"
+  # url: "https://www.illc.uva.nl/NewsandEvents/Vacancies/"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "logic"
 
-  - name: "Arché St Andrews"
-    url: "https://www.st-andrews.ac.uk/arche/news/"
-    type: static
-    keywords: *default_keywords
-    subfield: "formal-epistemology"
+
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "Arché St Andrews"
+  # url: "https://www.st-andrews.ac.uk/arche/news/"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "formal-epistemology"
+
 
   - name: "LOGOS Barcelona"
     url: "https://www.ub.edu/web/ub/en/recerca/grups/fitxa/L/LOGOS/index.html"
@@ -287,11 +331,13 @@ sites:
     keywords: *default_keywords
     subfield: "philosophy-of-language"
 
-  - name: "Carnegie Mellon Logic"
-    url: "https://www.cmu.edu/dietrich/philosophy/research/logic.html"
-    type: static
-    keywords: *default_keywords
-    subfield: "logic"
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "Carnegie Mellon Logic"
+  # url: "https://www.cmu.edu/dietrich/philosophy/research/logic.html"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "logic"
+
 
   - name: "Leeds Logic"
     url: "https://eps.leeds.ac.uk/maths-pure-mathematics/doc/logic"
@@ -307,11 +353,13 @@ sites:
 
   # ── Philosophy of Biology ───────────────────────────────────
 
-  - name: "Konrad Lorenz Institute"
-    url: "https://kli.ac.at/fellowships"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-biology"
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "Konrad Lorenz Institute"
+  # url: "https://kli.ac.at/fellowships"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-biology"
+
 
   - name: "Egenis Exeter"
     url: "https://socialsciences.exeter.ac.uk/sociology/research/sts/egenis/"
@@ -321,23 +369,29 @@ sites:
 
   # ── Ethics / Political ──────────────────────────────────────
 
-  - name: "Oxford Uehiro Centre"
-    url: "https://www.practicalethics.ox.ac.uk/vacancies"
-    type: static
-    keywords: *default_keywords
-    subfield: "political-philosophy-ethics"
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "Oxford Uehiro Centre"
+  # url: "https://www.practicalethics.ox.ac.uk/vacancies"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "political-philosophy-ethics"
 
-  - name: "Princeton Center for Human Values"
-    url: "https://uchv.princeton.edu/fellowships"
-    type: static
-    keywords: *default_keywords
-    subfield: "political-philosophy-ethics"
 
-  - name: "Harvard Safra Center for Ethics"
-    url: "https://ethics.harvard.edu/fellowships"
-    type: static
-    keywords: *default_keywords
-    subfield: "political-philosophy-ethics"
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "Princeton Center for Human Values"
+  # url: "https://uchv.princeton.edu/fellowships"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "political-philosophy-ethics"
+
+
+  # BROKEN (403 forbidden) — commented out 2026-04-07
+  # - name: "Harvard Safra Center for Ethics"
+  # url: "https://ethics.harvard.edu/fellowships"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "political-philosophy-ethics"
+
 
   - name: "Georgetown Kennedy Bioethics"
     url: "https://kennedyinstitute.georgetown.edu/"
@@ -351,17 +405,21 @@ sites:
     keywords: *default_keywords
     subfield: "political-philosophy-ethics"
 
-  - name: "Cambridge CSER"
-    url: "https://www.cser.ac.uk/opportunities/"
-    type: static
-    keywords: *default_keywords
-    subfield: "political-philosophy-ethics"
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "Cambridge CSER"
+  # url: "https://www.cser.ac.uk/opportunities/"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "political-philosophy-ethics"
 
-  - name: "Hastings Center"
-    url: "https://www.thehastingscenter.org/about/work-with-us/"
-    type: static
-    keywords: *default_keywords
-    subfield: "political-philosophy-ethics"
+
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "Hastings Center"
+  # url: "https://www.thehastingscenter.org/about/work-with-us/"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "political-philosophy-ethics"
+
 
   - name: "Stanford HAI"
     url: "https://hai.stanford.edu/career-opportunities"
@@ -393,11 +451,13 @@ sites:
     keywords: *default_keywords
     subfield: "political-philosophy-ethics"
 
-  - name: "Toronto Centre for Ethics"
-    url: "https://ethics.utoronto.ca/fellowships/"
-    type: static
-    keywords: *default_keywords
-    subfield: "political-philosophy-ethics"
+  # BROKEN (SSL cert expired) — commented out 2026-04-07
+  # - name: "Toronto Centre for Ethics"
+  # url: "https://ethics.utoronto.ca/fellowships/"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "political-philosophy-ethics"
+
 
   - name: "Stanford McCoy Center Ethics"
     url: "https://ethicsinsociety.stanford.edu/"
@@ -419,17 +479,21 @@ sites:
     keywords: *default_keywords
     subfield: "epistemology"
 
-  - name: "Cologne Epistemology"
-    url: "https://philsem.uni-koeln.de/en/"
-    type: static
-    keywords: *default_keywords
-    subfield: "epistemology"
+  # BROKEN (DNS failure) — commented out 2026-04-07
+  # - name: "Cologne Epistemology"
+  # url: "https://philsem.uni-koeln.de/en/"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "epistemology"
 
-  - name: "KU Leuven Philosophy"
-    url: "https://hiw.kuleuven.be/eng/study/vacancies"
-    type: static
-    keywords: *default_keywords
-    subfield: "epistemology"
+
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "KU Leuven Philosophy"
+  # url: "https://hiw.kuleuven.be/eng/study/vacancies"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "epistemology"
+
 
   - name: "Bochum Epistemology"
     url: "https://www.ruhr-uni-bochum.de/philosophy/"
@@ -445,17 +509,21 @@ sites:
     keywords: *default_keywords
     subfield: "philosophy-of-mind"
 
-  - name: "Berlin School of Mind and Brain"
-    url: "https://www.mind-and-brain.de/careers"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-mind"
+  # BROKEN (404) — commented out 2026-04-07
+  # - name: "Berlin School of Mind and Brain"
+  # url: "https://www.mind-and-brain.de/careers"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-mind"
 
-  - name: "ANU Consciousness"
-    url: "https://philosophy.cass.anu.edu.au/research/consciousness"
-    type: static
-    keywords: *default_keywords
-    subfield: "philosophy-of-mind"
+
+  # BROKEN (timeout/hanging) — commented out 2026-04-07
+  # - name: "ANU Consciousness"
+  # url: "https://philosophy.cass.anu.edu.au/research/consciousness"
+  # type: static
+  # keywords: *default_keywords
+  # subfield: "philosophy-of-mind"
+
 
   - name: "Monash Consciousness"
     url: "https://www.monash.edu/turner-institute/consciousness-and-cognition"
