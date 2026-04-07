@@ -1,0 +1,44 @@
+name: Daily Scrape
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # 6:00 AM UTC daily
+  workflow_dispatch:       # manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4 pyyaml
+          # Skip playwright — HigherEdJobs scraper is optional and needs a browser
+
+      - name: Run all scrapers
+        run: python -m scheduler.run_all
+        env:
+          PHILTRACKER_DB: philtracker.db
+
+      - name: Commit database changes
+        run: |
+          git config user.name "PhilTracker Bot"
+          git config user.email "bot@philtracker.dev"
+          git add philtracker.db
+          if git diff --cached --quiet; then
+            echo "No database changes to commit."
+          else
+            git commit -m "Auto-scrape: update listings $(date -u +%Y-%m-%d)"
+            git push
+          fi
