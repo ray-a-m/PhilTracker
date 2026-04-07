@@ -1,0 +1,145 @@
+# PhilTracker subfield tags
+# Each tag has a list of keywords/phrases that indicate relevance.
+# The tagger checks listing title + description against these.
+# Tags are not mutually exclusive — a listing can have many tags.
+
+philosophy-of-physics:
+  - "philosophy of physics"
+  - "foundations of physics"
+  - "quantum mechanics"
+  - "quantum gravity"
+  - "spacetime"
+  - "space-time"
+  - "philosophy of cosmology"
+  - "symmetry"
+  - "gauge theory"
+  - "general relativity"
+  - "quantum field theory"
+  - "quantum theory"
+  - "foundations of quantum"
+  - "philosophy of space"
+  - "philosophy of time"
+  - "statistical mechanics"
+  - "thermodynamics"
+  - "emergence in physics"
+
+philosophy-of-science:
+  - "philosophy of science"
+  - "scientific realism"
+  - "scientific explanation"
+  - "scientific models"
+  - "scientific understanding"
+  - "theory change"
+  - "underdetermination"
+  - "idealization"
+  - "model building"
+  - "scientific representation"
+  - "laws of nature"
+  - "natural kinds"
+  - "reduction"
+  - "scientific method"
+  - "confirmation"
+  - "evidence"
+
+history-and-philosophy-of-science:
+  - "history and philosophy of science"
+  - "history of science"
+  - "HPS"
+  - "history of physics"
+  - "history of chemistry"
+  - "history of biology"
+  - "historical epistemology"
+
+philosophy-of-biology:
+  - "philosophy of biology"
+  - "evolutionary theory"
+  - "natural selection"
+  - "species"
+  - "philosophy of ecology"
+  - "philosophy of genetics"
+  - "developmental biology"
+
+philosophy-of-chemistry:
+  - "philosophy of chemistry"
+  - "chemical explanation"
+  - "molecular structure"
+  - "periodic table"
+  - "chemical bonding"
+
+formal-epistemology:
+  - "formal epistemology"
+  - "bayesian"
+  - "bayesianism"
+  - "credence"
+  - "probability"
+  - "decision theory"
+  - "formal methods"
+  - "epistemic logic"
+
+social-epistemology:
+  - "social epistemology"
+  - "testimony"
+  - "trust in science"
+  - "consensus"
+  - "disagreement"
+  - "science communication"
+  - "epistemic injustice"
+
+metaphysics-of-science:
+  - "metaphysics of science"
+  - "dispositions"
+  - "laws of nature"
+  - "causation"
+  - "causal"
+  - "counterfactual"
+  - "structural realism"
+  - "ontic structural"
+
+german-idealism:
+  - "german idealism"
+  - "hegel"
+  - "hegelian"
+  - "schelling"
+  - "fichte"
+  - "kant"
+  - "naturphilosophie"
+  - "philosophy of nature"
+  - "absolute idealism"
+  - "dialectic"
+
+philosophy-of-mathematics:
+  - "philosophy of mathematics"
+  - "mathematical practice"
+  - "foundations of mathematics"
+  - "mathematical explanation"
+  - "mathematical realism"
+  - "structuralism"
+
+philosophy-of-mind:
+  - "philosophy of mind"
+  - "consciousness"
+  - "mental causation"
+  - "intentionality"
+  - "perception"
+
+logic:
+  - "philosophical logic"
+  - "philosophy of logic"
+  - "non-classical logic"
+  - "modal logic"
+
+ethics-of-science:
+  - "values in science"
+  - "ethics of science"
+  - "responsible research"
+  - "research ethics"
+  - "science and values"
+  - "science policy"
+
+philosophy-of-computing:
+  - "philosophy of AI"
+  - "philosophy of computing"
+  - "machine learning"
+  - "artificial intelligence"
+  - "computational"
+  - "philosophy of information"
