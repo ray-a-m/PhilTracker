@@ -1,0 +1,40 @@
+# Ground-truth listings that MUST be caught by the scraper layer.
+#
+# Each entry: an opportunity that really exists right now (or recently) and
+# which a working PhilTracker should not silently drop. If one of these ever
+# fails to show up in a --live run, investigate before merging anything.
+#
+# Schema:
+#   - url:                  the canonical listing URL (required)
+#     expected_institution: substring expected in the canonical institution
+#     expected_is_posting:  true for all of these (they're real postings)
+#     source:               which scraper is responsible
+#     note:                 free-text for humans
+#
+# Grow this file as you encounter real listings in the wild. Target: ≥10
+# before the first live run. Diversity > volume — one entry per scraper
+# at minimum.
+
+entries:
+  - url: "https://royalsociety.org/grants-schemes-awards/grants/newton-international/"
+    expected_institution: "Royal Society"
+    expected_is_posting: true
+    source: "institutional"           # via institutional/config.yaml — TODO verify added
+    note: "Newton International Fellowship — our canary. If the scraper drops this, something is very wrong."
+
+  # TODO: Pittsburgh Center for Philosophy of Science postdoc — fill real URL
+  # - url: "https://www.pitt.edu/~pittcntr/Fellowships/fellowships.html"
+  #   expected_institution: "Pittsburgh"
+  #   expected_is_posting: true
+  #   source: "institutional"
+  #   note: "Visiting Fellows program — recurring annual call."
+
+  # TODO: Minnesota Center for Philosophy of Science postdoc — fill real URL
+  # - url: "https://mcps.umn.edu/postdoctoral-fellowships"
+  #   expected_institution: "Minnesota"
+  #   expected_is_posting: true
+  #   source: "institutional"
+  #   note: "Resident Fellow program — recurring."
+
+  # TODO: add at least 7 more, covering each scraper module at least once
+  # (philjobs, spacetime, academic_jobs_wiki, higheredjobs, institutional).

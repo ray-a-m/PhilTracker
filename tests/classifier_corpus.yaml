@@ -1,0 +1,57 @@
+# Labelled corpus for classifier precision/recall regression.
+#
+# Each entry: a real listing text (copy-pasted) + what the LLM SHOULD classify it as.
+# The test replays mocked Anthropic responses for CI speed; when the prompt changes,
+# regenerate the mocked responses against the corpus.
+#
+# Schema:
+#   - id:                   short stable slug (e.g. "newton-fellowship-2026")
+#     expected_is_posting:  true | false
+#     source:               freeform attribution (url or "synthetic")
+#     text:                 full text the LLM would see (raw scraped description)
+#     notes:                why this entry matters (edge case, FP we hit once, etc.)
+#
+# Target thresholds once seeded:
+#   precision ≥ 0.95
+#   recall    ≥ 0.95
+#
+# Seed target: ≥30 entries (≥15 positive, ≥15 negative) before first live run.
+# Grow toward ~200 over normal use — every real FP / FN gets pinned here.
+
+entries: []
+
+# Seeding checklist (fill these as you encounter them):
+#
+# POSITIVE (≥15):
+#   - Newton International Fellowship listing text
+#   - Pitt Center for Philosophy of Science postdoc text
+#   - Minnesota Center postdoc text
+#   - A PhilJobs TT ad (philosophy of physics)
+#   - A PhilJobs postdoc ad (philosophy of science)
+#   - A Taking Up Spacetime job post
+#   - A Higher Ed Jobs philosophy TT ad
+#   - An Academic Jobs Wiki postdoc entry
+#   - An Oxford Uehiro-style fellowship
+#   - A non-English posting (if any)
+#   - A no-deadline listing
+#   - A listing whose deadline has already passed (still is_posting=true)
+#   - A visiting position
+#   - A PhD programme admission call (with stipend)
+#   - Another recent opening you've seen in the wild
+#
+# NEGATIVE (≥15):
+#   - A Daily Nous blog post ABOUT a hire
+#   - A CFP for a workshop
+#   - A CFP for a conference
+#   - A faculty roster page
+#   - An archive index page
+#   - A past posting wrapped in "(The deadline was X. This call is closed.)"
+#   - A prize announcement (not a role)
+#   - A grant call for completed work
+#   - A research-group landing page with no openings
+#   - A news item about a departure
+#   - A PhilJobs listing that's NOT philosophy (e.g. theology, rare)
+#   - A scraper-noise artifact (cookie banner, nav text scraped as listing)
+#   - An event announcement
+#   - A "our team" page
+#   - A scraped search result for "not found"

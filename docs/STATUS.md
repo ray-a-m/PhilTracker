@@ -6,9 +6,9 @@
 
 ## Current state
 
-**Phase:** Phase 4 complete; ready for Phase 5 (example files + seed tests)
+**Phase:** Phase 5 scaffolded; user-side steps remain (first live dry-run + corpus/ground-truth content)
 **Last updated:** 2026-04-20
-**Last session:** T10 scheduler rewire + 4 integration tests; 61 tests green
+**Last session:** T10 scheduler rewire + T11a example configs + T12a/T13a test scaffolds; 61 passed, 2 skipped (live)
 
 ## What's done
 
@@ -68,13 +68,38 @@
 - ✅ Forced exception → failure-notice dispatched + re-raise
 - ✅ Full suite: 61 passed
 
-## What's next
+## What's next — user-side steps
 
-**Phase 5** (T11–T13):
-- **T11a:** Create `.env.example` + `config.example.yaml` (files the user then copies locally).
-- **T11b (manual, user action):** First live dry-run. `cp .env.example .env`; fill in real creds; `cp config.example.yaml config.local.yaml`; fill in real interests; `python -m scheduler.run_all --dry-run`.
-- **T12:** Seed `tests/ground_truth.yaml` ≥10. Requires real URLs (Newton, Pitt Center, Minnesota Center + 7 more collected as we find them).
-- **T13:** Seed `tests/classifier_corpus.yaml` ≥30 (15 pos / 15 neg). Requires text from real listings — best sourced from T11b's dry-run output.
+The code is done. What remains cannot be automated:
+
+### Immediate (T11b — first live dry-run)
+1. `cp .env.example .env` — fill in `ANTHROPIC_API_KEY`, `FASTMAIL_USERNAME`, `FASTMAIL_APP_PASSWORD`; verify the three sender/recipient vars
+2. `cp config.example.yaml config.local.yaml` — replace the example interests with Raymond's actual four: `philosophy-of-physics`, `philosophy-of-science`, `kant`, `hegel` (per memory)
+3. `python -m scheduler.run_all --dry-run` — watch for clean classification on real listings; inspect the digest stdout; check Anthropic console for ~$X cost
+
+### T12b — grow ground_truth.yaml to ≥10
+`tests/ground_truth.yaml` has Newton seeded + 2 commented-out placeholders (Pitt + UMinn — URLs need verification). Target: one entry per active scraper at minimum.
+
+Run: `pytest --live tests/test_ground_truth.py` (skips if <10 entries).
+
+### T13b — grow classifier_corpus.yaml to ≥30
+`tests/classifier_corpus.yaml` has a seeding checklist in comments. Best source: copy-paste real listing text from T11b dry-run output. Label each as `expected_is_posting: true/false`.
+
+Run: `pytest --live tests/test_classifier_corpus.py` (skips if <30 entries). Asserts precision + recall ≥ 0.95.
+
+### T14 — Fastmail Sieve rule + first real send (per README)
+Configure once in Fastmail settings, then `python -m scheduler.run_all` without `--dry-run`.
+
+### Definition of done (from SPEC)
+1. ✅ `python -m scheduler.run_all` runs end-to-end on a fresh checkout without exceptions (verified in dry-run)
+2. ⏳ A daily digest arrives via Fastmail (needs real run)
+3. ⏳ Per-listing emails land in PhilTracker/Listings (needs Sieve rule + real run)
+4. ✅ Empty-digest days send a receipt (tested)
+5. ✅ Failed runs send a failure notice (tested)
+6. ✅ `pytest` is green without `--live`
+7. ⏳ `pytest --live` is green (needs seeded corpora)
+8. ⏳ LLM day-cost < $0.50 (measured in first real run)
+9. ⏳ Repo owner uses it during a cycle and stops manually checking (user outcome)
 
 **Ground-truth URLs to collect before T12:** Pitt Center for Philosophy of Science postdoc, Minnesota Center postdoc (user to supply exact URLs).
 
@@ -105,6 +130,12 @@ From the refine session:
 - None active. Ready to execute T1 on next action.
 
 ## Session log (most recent first)
+
+### 2026-04-20 — Phase 5 scaffold
+- T11a: `.env.example` + `config.example.yaml` committed. Example uses neutral synthetic interests (not Raymond's real AOS) so forkers get a usable starting point.
+- T12a: `tests/conftest.py` with `--live` flag; `tests/ground_truth.yaml` seeded with Newton + 2 commented placeholders; `tests/test_ground_truth.py` runs pipeline in dry-run, asserts every seeded URL ends up active=1
+- T13a: `tests/classifier_corpus.yaml` with schema + seeding checklist; `tests/test_classifier_corpus.py` runs classify_and_extract per entry, asserts precision + recall ≥ 0.95; skips if < 30 entries
+- All live tests cleanly skip by default (61 passed, 2 skipped) and collect with `--live`
 
 ### 2026-04-20 — Phase 4 execution
 - Rewrote `scheduler/run_all.py` end-to-end; old `tag_listings` import (broken since T4) is gone

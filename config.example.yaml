@@ -1,0 +1,16 @@
+# Copy to `config.local.yaml` and edit. `config.local.yaml` is gitignored.
+#
+# `interests` controls the ordering of sections in your digest. Listings
+# whose `aos` tags match a slug in this list appear first (in the order
+# you list them). Remaining listings fall below, grouped by their own
+# tags alphabetically.
+#
+# Valid slugs are defined in `tagger/tags.yaml` — open that file to see
+# the full taxonomy. Add a new slug there if you need one the LLM should
+# recognize; it picks up edits on the next run.
+
+interests:
+  # Replace with the subfield slugs you care about. Example set below:
+  - philosophy-of-mind
+  - metaphysics
+  - logic
