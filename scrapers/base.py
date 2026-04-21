@@ -11,7 +11,14 @@ from bs4 import BeautifulSoup
 
 @dataclass
 class Listing:
-    """A single job or fellowship listing."""
+    """A single job or fellowship listing.
+
+    Scrapers populate title/institution/url/source/deadline/description from
+    what they can parse. The LLM pass canonicalizes and fills the remaining
+    fields (summary, location, duration, aos, listing_type, confidence).
+    Rejects are marked active=False so they're retained in the DB for URL
+    caching but never appear in a digest.
+    """
     title: str
     institution: str
     url: str
@@ -19,13 +26,13 @@ class Listing:
     deadline: Optional[str] = None          # ISO format: "2026-04-08"
     description: str = ""
     location: str = ""
-    duration: str = ""
-    start_date: str = ""
-    aos_raw: str = ""                       # raw AOS string from the source
-    salary: str = ""
+    duration: str = ""                      # LLM-extracted free-text
     date_scraped: str = field(default_factory=lambda: date.today().isoformat())
-    aos: list[str] = field(default_factory=list)  # filled by tagger, not scraper
+    aos: list[str] = field(default_factory=list)  # LLM-assigned subfield slugs
     listing_type: str = "unknown"           # "job", "fellowship", "postdoc", "phd"
+    summary: str = ""                       # LLM-generated 1-sentence summary
+    confidence: float = 0.0                 # LLM confidence for is_posting
+    active: bool = True                     # False = LLM-classified reject or expired
 
     def __hash__(self):
         return hash((self.title, self.institution, self.url))

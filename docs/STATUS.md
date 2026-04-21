@@ -6,28 +6,43 @@
 
 ## Current state
 
-**Phase:** Pre-flight (before T1)
+**Phase:** Phase 1 complete; ready for Phase 2 (LLM pipeline)
 **Last updated:** 2026-04-20
-**Last session:** Spec refinement + implementation plan authored
+**Last session:** T1–T3 executed as one coordinated batch; 38 tests green
 
 ## What's done
 
-- ✅ `SPEC.md` rewritten for email-digest MVP (no FastAPI, no frontend, no pin table)
-- ✅ `SPEC.md` deltas applied: `duration` kept as LLM-extracted free-text; `rejection_reason` removed (silent reject via `active=0`)
-- ✅ `SPEC.md` additions: plus-addressed From aliases + Sieve rule for per-listing routing; run-failure email; autoescape + `<script>` snapshot test; corpus seed thresholds (ground_truth ≥10, classifier_corpus ≥30)
-- ✅ `docs/ideas/email-digest-mvp.md` updated to match spec
-- ✅ `README.md` rewritten: new architecture, Fastmail setup, Sieve rule, star-to-pin workflow
-- ✅ `docs/PLAN.md` authored (15 tasks, 6 phases, ~15 hrs weekend-shippable)
-- ✅ `requirements.txt` updated: removed fastapi/uvicorn; added anthropic, jinja2, python-dotenv, black
+### Planning (2026-04-20 early session)
+- ✅ `SPEC.md` rewritten for email-digest MVP
+- ✅ Deltas: `duration` kept as LLM free-text; `rejection_reason` removed (silent `active=0` reject); plus-addressed From + Sieve rule for per-listing routing; run-failure email path; autoescape + `<script>` snapshot test; corpus seed thresholds
+- ✅ `README.md` rewritten; `docs/PLAN.md` authored; `docs/STATUS.md` created
+- ✅ `requirements.txt` updated (fastapi/uvicorn → anthropic, jinja2, python-dotenv, black)
+- ✅ Stale `docs/CONTRIBUTING.md` deleted
+
+### Phase 1 — Foundation (2026-04-20 execution session)
+- ✅ **T1:** `backend/models.py` rewritten to listings-only schema; added helpers `get_known_urls`, `get_new_active_listings`, `count_rejected_today` for T10
+- ✅ **T2:** Deleted `backend/app.py`, `backend/relevance.py`, `frontend/`, `tests/test_relevance.py`; rewrote `tests/test_models.py` for new schema
+- ✅ **T3:** `Listing` dataclass dropped `start_date`/`aos_raw`/`salary`, added `summary`/`confidence`/`active`; updated 4 scrapers (`philjobs`, `taking_up_spacetime`, institutional `static_scraper` + `wordpress_scraper`) to stop passing removed kwargs; `backend/dedup.py` simplified — no more `secondary_urls`, no merge logic (fuzzy match returns "duplicate"); `tests/test_dedup.py` + `tests/test_scrapers.py` updated
+- ✅ `.gitignore` adds `config.local.yaml`, `.DS_Store`
+
+### Checkpoint 1 verification
+- ✅ Fresh `init_db()` shows `listings` only
+- ✅ `pytest` → 38 passed, 0 failed
+- ✅ No dangling imports of deleted modules
+- ✅ `scheduler.run_all` still imports cleanly (breaks expected in T4 when tagger is rewritten; bundled T4 fixes it)
 
 ## What's next
 
-**Immediate:** Pre-flight checklist in `docs/PLAN.md`, then start **T1 (rewrite `backend/models.py` schema)**.
+**Immediate:** **T4 — `llm/prompts.py` + trim `tagger/keywords.py` to yaml-loader-only.**
 
-Pre-flight reminders:
-- `rm philtracker.db` (no data to preserve — user confirmed)
-- Confirm Anthropic API key + Fastmail app password in hand
-- User provided ground-truth URLs to collect during T12: Pitt Center postdoc, Minnesota Center postdoc (add to `tests/ground_truth.yaml` alongside Newton — user will supply exact URLs at T12 time)
+**Before T5 (client wrapper):** verify Anthropic prompt-caching 1-hour TTL API syntax against current SDK docs. Don't guess.
+
+**Pre-flight items already satisfied:**
+- Working tree was clean
+- No `philtracker.db` to delete
+- User confirmed Anthropic API key + Fastmail app password in hand
+
+**Ground-truth URLs to collect before T12:** Pitt Center for Philosophy of Science postdoc, Minnesota Center postdoc (user to supply exact URLs).
 
 ## Architecture decisions locked (don't reopen without flagging)
 
@@ -56,6 +71,13 @@ From the refine session:
 - None active. Ready to execute T1 on next action.
 
 ## Session log (most recent first)
+
+### 2026-04-20 — Phase 1 execution
+- T1+T2+T3 merged into one coordinated batch (tight coupling: Listing dataclass changes ripple through 4 scrapers + dedup + 3 test files)
+- Destructive dedup decision: dropped secondary_urls + merge logic entirely; fuzzy matches return "duplicate". LLM-canonicalized title/institution should make this cleaner in practice, and the merge path had no visible consumers post-refactor.
+- `test_init_db_listings_only` initially failed due to SQLite's auto-created `sqlite_sequence` table (side effect of AUTOINCREMENT); fixed by excluding `sqlite_%` from the table check
+- `.gitignore` extended for `config.local.yaml` + `.DS_Store`
+- 38 tests green, no dangling imports
 
 ### 2026-04-20 — Planning + docs refresh
 - Idea-refine session: flipped `rejection_reason` → silent reject; added `duration` as LLM-extracted free-text; converged on plus-addressed From + Sieve rule for per-listing pinning

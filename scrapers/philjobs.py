@@ -111,7 +111,6 @@ class PhilJobsScraper(BaseScraper):
             source=self.name,
             deadline=deadline,
             description=description,
-            aos_raw=aos_raw,
             listing_type=listing_type,
         )
 

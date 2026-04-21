@@ -98,9 +98,6 @@ class TakingUpSpacetimeScraper(BaseScraper):
         deadline = self._extract_deadline(content_text)
         location = self._extract_location(content_text)
         duration = self._extract_duration(content_text)
-        start_date = self._extract_start_date(content_text)
-        salary = self._extract_salary(content_text)
-        aos_raw = self._extract_aos(content_text)
 
         return Listing(
             title=title,
@@ -111,9 +108,6 @@ class TakingUpSpacetimeScraper(BaseScraper):
             description=content_text[:5000],
             location=location,
             duration=duration,
-            start_date=start_date,
-            aos_raw=aos_raw,
-            salary=salary,
             listing_type=listing_type,
         )
 
@@ -190,45 +184,6 @@ class TakingUpSpacetimeScraper(BaseScraper):
             r"(?:duration|term|length of appointment)[:\s]*([^\n.]{3,80})",
             r"(\d+[\s-]?years?(?:\s+renewable)?)",
             r"(\d+[\s-]?months?)",
-        ]
-        for pattern in patterns:
-            match = re.search(pattern, text, re.IGNORECASE)
-            if match:
-                return match.group(1).strip()
-        return ""
-
-    @staticmethod
-    def _extract_start_date(text: str) -> str:
-        """Extract start date from post text."""
-        patterns = [
-            r"(?:start(?:ing)?\s*date|begins?|commenc(?:es?|ing))[:\s]*(\w+ \d{1,2},?\s*\d{4}|\d{4}-\d{2}-\d{2}|\d{1,2} \w+ \d{4})",
-            r"(?:start(?:ing)?|begin(?:ning)?)\s+(?:in\s+)?(\w+\s+\d{4})",
-        ]
-        for pattern in patterns:
-            match = re.search(pattern, text, re.IGNORECASE)
-            if match:
-                return match.group(1).strip()
-        return ""
-
-    @staticmethod
-    def _extract_salary(text: str) -> str:
-        """Extract salary info from post text."""
-        patterns = [
-            r"(?:salary|compensation|pay|stipend|remuneration)[:\s]*([^\n.]{5,100})",
-            r"([\$€£]\s*[\d,]+(?:\s*[-–]\s*[\$€£]?\s*[\d,]+)?(?:\s*per\s+\w+)?)",
-        ]
-        for pattern in patterns:
-            match = re.search(pattern, text, re.IGNORECASE)
-            if match:
-                return match.group(1).strip()
-        return ""
-
-    @staticmethod
-    def _extract_aos(text: str) -> str:
-        """Extract area of specialization from post text."""
-        patterns = [
-            r"(?:area[s]?\s+of\s+specializ\w+|AOS)[:\s]*([^\n]{5,200})",
-            r"(?:specializ\w+\s+in)[:\s]*([^\n.]{5,200})",
         ]
         for pattern in patterns:
             match = re.search(pattern, text, re.IGNORECASE)

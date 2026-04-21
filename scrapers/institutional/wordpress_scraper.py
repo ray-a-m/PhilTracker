@@ -106,11 +106,8 @@ class WordPressScraper(BaseScraper):
         institution = self._extract_institution(title, content_text)
         listing_type = self._classify_type(combined)
         deadline = self._extract_date_near_keyword(content_text, ["deadline", "due", "close", "submit by"])
-        start_date = self._extract_date_near_keyword(content_text, ["start", "begin", "commence"])
         location = self._extract_field(content_text, ["location", "based in", "based at", "situated in"])
         duration = self._extract_field(content_text, ["duration", "term", "length", "appointment period"])
-        salary = self._extract_field(content_text, ["salary", "stipend", "compensation", "pay", "remuneration"])
-        aos_raw = self._extract_field(content_text, ["area of specialization", "AOS", "specialization"])
 
         return Listing(
             title=title,
@@ -121,9 +118,6 @@ class WordPressScraper(BaseScraper):
             description=content_text[:5000],
             location=location,
             duration=duration,
-            start_date=start_date or "",
-            aos_raw=aos_raw,
-            salary=salary,
             listing_type=listing_type,
         )
 

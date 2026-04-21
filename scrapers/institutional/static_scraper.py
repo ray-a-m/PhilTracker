@@ -168,11 +168,8 @@ class StaticScraper(BaseScraper):
         """Build a Listing from extracted data."""
         listing_type = self._classify_type(f"{title} {text}".lower())
         deadline = self._extract_date_near_keyword(text, ["deadline", "due", "close", "submit by"])
-        start_date = self._extract_date_near_keyword(text, ["start", "begin", "commence"]) or ""
         location = self._extract_field(text, ["location", "based in", "based at"])
         duration = self._extract_field(text, ["duration", "term", "length"])
-        salary = self._extract_field(text, ["salary", "stipend", "compensation", "remuneration"])
-        aos_raw = self._extract_field(text, ["area of specialization", "AOS", "specialization"])
         institution = self._extract_institution(title, text)
 
         return Listing(
@@ -184,9 +181,6 @@ class StaticScraper(BaseScraper):
             description=text[:5000],
             location=location,
             duration=duration,
-            start_date=start_date,
-            aos_raw=aos_raw,
-            salary=salary,
             listing_type=listing_type,
         )
 

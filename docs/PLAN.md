@@ -71,11 +71,13 @@ Implementation flows bottom-up.
 - Delete `users/` helpers if any exist (CRUD for user rows)
 
 **Verify:**
-- [ ] `rm philtracker.db && python -c "from backend.models import init_db; init_db()"` runs clean
-- [ ] `sqlite3 philtracker.db ".schema listings"` shows `summary`, `confidence`, no `start_date`/`aos_raw`/`salary`
-- [ ] `.tables` shows `listings` only
+- [x] `rm philtracker.db && python -c "from backend.models import init_db; init_db()"` runs clean
+- [x] `sqlite3 philtracker.db ".schema listings"` shows `summary`, `confidence`, no `start_date`/`aos_raw`/`salary`
+- [x] `.tables` shows `listings` only
 
-**Files:** `backend/models.py`
+**Files:** `backend/models.py` *(also added helpers `get_known_urls`, `get_new_active_listings`, `count_rejected_today` for T10)*
+
+**Status:** ✅ Done 2026-04-20
 
 #### T2. Purge FastAPI + frontend + their tests `[S]`
 
@@ -86,11 +88,13 @@ Implementation flows bottom-up.
 - Update `tests/test_dedup.py`, `tests/test_tagger.py`, `tests/test_scrapers.py` to use the new `Listing` fields (no `start_date`/`aos_raw`/`salary`; `duration`/`summary`/`confidence` accepted as defaults)
 
 **Verify:**
-- [ ] `grep -r "from backend.app\|from backend.relevance\|from frontend" .` returns nothing (outside `.git`)
-- [ ] `pip install -r requirements.txt` succeeds clean
-- [ ] `pytest tests/test_models.py tests/test_dedup.py tests/test_scrapers.py tests/test_tagger.py` passes (old logic exercised against new schema/fields)
+- [x] `grep -r "from backend.app\|from backend.relevance\|from frontend" .` returns nothing (outside `.git`)
+- [x] `pip install -r requirements.txt` succeeds clean
+- [x] `pytest` → 38 passed (test_models, test_dedup, test_scrapers, test_tagger)
 
-**Files:** delete 3 files + 1 test; rewrite `tests/test_models.py`; edit `tests/test_dedup.py`, `tests/test_tagger.py`, `tests/test_scrapers.py`
+**Files:** deleted 4 (`backend/app.py`, `backend/relevance.py`, `frontend/index.html`, `tests/test_relevance.py`); rewrote `tests/test_models.py`; edited `tests/test_dedup.py`, `tests/test_scrapers.py`. `test_tagger.py` left untouched (rewritten in T4 when keyword code goes away).
+
+**Status:** ✅ Done 2026-04-20
 
 #### T3. Update `scrapers/base.py` Listing dataclass + `backend/dedup.py` `[S]`
 
@@ -99,17 +103,21 @@ Implementation flows bottom-up.
 - Near-duplicate matching key unchanged (title + institution); LLM-canonicalized values should improve hit rate
 
 **Verify:**
-- [ ] Any existing dedup tests still pass after field updates
-- [ ] Run one scraper manually: `python -m scrapers.philjobs` returns `Listing` objects with new fields defaulted
+- [x] `tests/test_dedup.py` green after update
+- [x] Listing dataclass updated; 4 scrapers (`philjobs`, `taking_up_spacetime`, institutional `static_scraper` + `wordpress_scraper`) stopped passing removed kwargs
 
-**Files:** `scrapers/base.py`, `backend/dedup.py`
+**Design note:** dedup simplified further than plan originally called for — dropped `secondary_urls` column and the merge logic entirely; fuzzy matches just return `"duplicate"`. LLM-canonicalized title/institution should make fuzzy matches both rarer and cleaner.
 
-#### Checkpoint 1
+**Files:** `scrapers/base.py`, `backend/dedup.py`, plus 4 scrapers above.
 
-- [ ] Fresh DB init works, shows new schema only
-- [ ] `python -m scrapers.philjobs` still runs (scrapers untouched)
-- [ ] No dangling imports of deleted modules
-- [ ] Commit: `refactor: schema to listings-only; drop FastAPI/frontend/relevance`
+**Status:** ✅ Done 2026-04-20
+
+#### Checkpoint 1 ✅ 2026-04-20
+
+- [x] Fresh DB init works, shows new schema only
+- [x] 38 tests pass (`pytest`)
+- [x] No dangling imports of deleted modules
+- [x] Commit pending (this session's push)
 
 ---
 

@@ -34,7 +34,7 @@ class TestPhilJobsSearchParsing:
         assert listing.institution == "University of Oxford"
         assert listing.deadline == "2026-05-15"
         assert listing.url == "https://philjobs.org/job/show/12345"
-        assert "Philosophy of Physics" in listing.aos_raw
+        assert "Philosophy of Physics" in listing.description
 
     def test_parse_tenure_track(self):
         soup = _load_fixture("philjobs_search.html")
@@ -125,7 +125,6 @@ class TestTakingUpSpacetimeParsing:
         assert geneva.deadline == "2026-06-30"
         assert "Geneva" in geneva.location
         assert "2 years" in geneva.duration
-        assert "CHF 85,000" in geneva.salary
 
     def test_extract_tenure_track(self):
         soup = _load_fixture("taking_up_spacetime_page.html")
