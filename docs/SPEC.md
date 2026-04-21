@@ -263,7 +263,7 @@ Scrapers extract what they can — URL + whatever raw text they have. The LLM ca
 
 **Never:**
 - Commit `philtracker.db`, `config.local.yaml`, `.env`, or any scraped data
-- Silently drop listings — rejects keep `active=0` + `rejection_reason`
+- Drop a listing's *row* from the DB — rejects stay as `active=0` so the URL is cached against re-classification tomorrow
 - Run the scraper from CI
 - Send email from CI
 - Execute anything the LLM returns as code

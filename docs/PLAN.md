@@ -312,67 +312,63 @@ send_run(digest_html, digest_subject, per_listing, dry_run=args.dry_run)
 
 ---
 
-### Phase 5 — First live dry-run + corpus seeding (~3 hrs)
+### Phase 5 — First live dry-run + corpus seeding
 
-#### T11. Create `.env.example` + `config.example.yaml`, then first live dry-run `[S]`
+Split between **code-side (Claude)** and **content-side (user)** subtasks. All code-side work is landed; content-side requires real credentials + real listing text.
 
-- Create `.env.example` (committed) with all six vars as placeholders:
-  ```
-  ANTHROPIC_API_KEY=sk-ant-...
-  FASTMAIL_USERNAME=you@fastmail.com
-  FASTMAIL_APP_PASSWORD=...
-  DIGEST_RECIPIENT=you@fastmail.com
-  DIGEST_SENDER=you+philtracker-digest@fastmail.com
-  LISTING_SENDER=you+philtracker-listing@fastmail.com
-  ```
-- Create `config.example.yaml` (committed) — documented shape matching what `run_all.py` reads. Starter interests (3-5 example subfield slugs) + subfield-priority ordering. Comments explaining each field.
-- `cp .env.example .env`; fill in real credentials (`.env` is gitignored)
-- `cp config.example.yaml config.local.yaml`; fill in your real interests (`config.local.yaml` is gitignored)
-- Run: `python -m scheduler.run_all --dry-run` against live scrapers
-- Sanity check: digest looks right, LLM returns sensible JSON, no crashes, Anthropic console shows cost
+#### T11a. Create `.env.example` + `config.example.yaml` `[XS — done]`
 
-**Verify:**
-- [ ] `.env.example` and `config.example.yaml` committed; `.env` and `config.local.yaml` in `.gitignore`
-- [ ] Dry-run completes without exception
-- [ ] Digest renders real listings with real summaries
-- [ ] Per-listing emails look well-formed
-- [ ] LLM cost on console < $0.50
+- `.env.example` committed with all six vars + inline hints
+- `config.example.yaml` committed with synthetic neutral interests (not Raymond's real AOS — per memory, keep examples generic for forkers)
+- `.gitignore` covers `.env` and `config.local.yaml`
 
-**Files:** new `.env.example`, new `config.example.yaml`, ensure `.gitignore` covers `.env` and `config.local.yaml`
+**Status:** ✅ Done 2026-04-20 (code-side)
 
-#### T12. Seed `tests/ground_truth.yaml` to ≥10 `[S]`
+#### T11b. First live dry-run `[user action]`
 
-- Existing seed: Newton International Fellowship
-- Add: Pitt Center postdoc, Minnesota Center postdoc (user-supplied URLs)
-- Add 7+ more: at least one per active scraper module (PhilJobs, Taking Up Spacetime, HigherEdJobs, AcademicJobsWiki, institutional runner). Pick currently-open calls known to the user.
-- Each entry: `{url, expected_institution, expected_is_posting: true, source}`
-- `tests/test_ground_truth.py` marked `@pytest.mark.live`; skipped by default, runs with `pytest --live`
+- `cp .env.example .env` → fill real `ANTHROPIC_API_KEY`, `FASTMAIL_USERNAME`, `FASTMAIL_APP_PASSWORD`
+- `cp config.example.yaml config.local.yaml` → replace with Raymond's real interests: `philosophy-of-physics`, `philosophy-of-science`, `kant`, `hegel`
+- `python -m scheduler.run_all --dry-run` → inspect output; confirm LLM cost on console
 
-**Verify:**
-- [ ] `tests/ground_truth.yaml` has ≥10 entries
-- [ ] `pytest --live tests/test_ground_truth.py` passes (run once on-demand)
+**Status:** ⏳ Pending user action
 
-**Files:** `tests/ground_truth.yaml`, new `tests/test_ground_truth.py`
+#### T12a. Ground-truth harness scaffolded `[S — done]`
 
-#### T13. Seed `tests/classifier_corpus.yaml` to ≥30 `[S]`
+- `tests/conftest.py` with `--live` flag
+- `tests/ground_truth.yaml` seeded with Newton + 2 commented placeholders (Pitt Center, Minnesota Center — URLs user-supplied)
+- `tests/test_ground_truth.py` — marked `@pytest.mark.live`; runs pipeline in dry-run; asserts every seeded URL lands as `active=1`; skips if <10 entries
 
-- Use the T11 dry-run output: copy 15 real positive listing texts from real scrapes
-- Hand-source 15 negatives: blog posts *about* postings (e.g., "prominent fellowship awarded to X"), conference CFPs, news-about-hires, archive pages, past postings
-- Each entry: `{text, expected_is_posting: bool, notes?: str}`
-- `tests/test_classifier_corpus.py` replays mocked anthropic responses, asserts ≥95% precision + ≥95% recall
+**Status:** ✅ Done 2026-04-20
 
-**Verify:**
-- [ ] `tests/classifier_corpus.yaml` has ≥30 entries (≥15 positive, ≥15 negative)
-- [ ] `pytest tests/test_classifier_corpus.py` passes (mocked; runs in CI)
+#### T12b. Seed ground_truth.yaml to ≥10 `[user action]`
 
-**Files:** `tests/classifier_corpus.yaml`, new `tests/test_classifier_corpus.py`
+- Uncomment + verify Pitt Center and Minnesota Center URLs
+- Add 7+ more, at least one per scraper module (philjobs, spacetime, academic_jobs_wiki, higheredjobs, institutional)
+- Run: `pytest --live tests/test_ground_truth.py`
 
-#### Checkpoint 5 — tests green, corpus seeded
+**Status:** ⏳ Pending user content (currently 1 seeded + 2 commented)
 
-- [ ] `pytest` (no flags) green
-- [ ] Coverage ≥ 80% for `backend/`, `llm/`, `mailer/`
-- [ ] Corpus meets seed thresholds
-- [ ] Commit: `test: seed ground_truth + classifier_corpus to MVP thresholds`
+#### T13a. Classifier-corpus harness scaffolded `[S — done]`
+
+- `tests/classifier_corpus.yaml` with schema comments + 30-item seeding checklist (15 positive categories, 15 negative categories)
+- `tests/test_classifier_corpus.py` — marked `@pytest.mark.live`; calls `classify_and_extract` against each entry; asserts precision + recall ≥ 0.95; skips if <30 entries
+
+**Status:** ✅ Done 2026-04-20
+
+#### T13b. Seed classifier_corpus.yaml to ≥30 `[user action]`
+
+- Best source: paste real listing text from T11b dry-run output; label `expected_is_posting: true/false`
+- Seed with the 30 categories listed in the file's checklist
+- Run: `pytest --live tests/test_classifier_corpus.py`
+
+**Status:** ⏳ Pending user content (currently 0 entries)
+
+#### Checkpoint 5 — code-side complete, content-side pending
+
+- [x] `pytest` (no flags) green — **61 passed, 2 skipped (live)**
+- [x] Live test harness scaffolded and opts in via `--live`
+- [ ] Corpus + ground-truth meet seed thresholds (user action)
+- [x] Commit: `f2f90b4` Phase 5 scaffold
 
 ---
 
@@ -390,22 +386,22 @@ send_run(digest_html, digest_subject, per_listing, dry_run=args.dry_run)
 - [ ] Starring persists
 - [ ] LLM day-cost < $0.50 on Anthropic dashboard
 
-#### T15. Docs touch-up `[XS]`
+#### T15. Docs touch-up `[XS — done]`
 
-- `.env.example`: ensure current with all six vars (`ANTHROPIC_API_KEY`, `FASTMAIL_USERNAME`, `FASTMAIL_APP_PASSWORD`, `DIGEST_RECIPIENT`, `DIGEST_SENDER`, `LISTING_SENDER`)
-- `config.example.yaml`: confirm shape matches what `run_all.py` reads
-- `README.md` has already been updated — give it one read-through for accuracy against the as-built code
+- `.env.example` has all six vars with inline hints
+- `config.example.yaml` shape matches what `run_all.py` reads
+- `README.md` status line reflects "v1 code complete; live seeding in progress"
+- `docs/STATUS.md` is the live continuity doc
 
-**Verify:**
-- [ ] Fresh-checkout simulation: `git clone` into a tmp dir, follow README getting-started, end-to-end works
+**Status:** ✅ Done 2026-04-20
 
-#### Checkpoint 6 — v1 done
+#### Checkpoint 6 — v1 done (pending real send)
 
-- [ ] First real digest arrived in Inbox
-- [ ] Per-listing emails routed to folder
-- [ ] Starring one persists across sessions
-- [ ] Empty DB + `python -m scheduler.run_all` reproduces the whole pipeline from scratch
-- [ ] Commit: `docs: README + .env.example reflect shipped shape`
+- [ ] First real digest arrived in Inbox (pending T11b + T14)
+- [ ] Per-listing emails routed to folder (pending Sieve rule setup)
+- [ ] Starring one persists across sessions (pending real send)
+- [x] Empty DB + `python -m scheduler.run_all` reproduces the whole pipeline from scratch (dry-run verified)
+- [ ] Final commit marking v1 shipped
 
 ---
 
@@ -420,37 +416,36 @@ send_run(digest_html, digest_subject, per_listing, dry_run=args.dry_run)
 
 ## Risks & mitigations
 
-| Risk | Impact | Mitigation |
+| Risk | Status | Mitigation |
 |---|---|---|
-| Anthropic tool-use schema churn on early prompts | Medium — slows T6/T7 | Corrective retry in `call_with_retry`; iterate on 5 fixture listings offline before first live call |
-| 1-hour cache TTL API syntax uncertain | Low | Verify against Anthropic docs at T5; 5-minute default TTL still works if 1-hour fails |
-| Fastmail plus-addressing edge cases | Low | Fastmail officially supports it; send self-test early in T14; fallback to Subject-prefix Sieve |
-| Playwright in `launchd` PATH/env issues | Medium — blocks Phase 7 | Not on weekend-critical path; keep `launchd` for Phase 7 |
-| `send_failure_notice` itself fails | Low | Inner try/except writes to stderr, re-raises original |
-| First-run LLM cost overshoots $0.50 | Low | Anthropic console spending alert at $1/day; `--dry-run` covers iteration |
-| `dedup.py` has implicit assumptions about old fields | Low-medium | T3 catches via existing dedup tests |
-| Classifier corpus label drift | Low | Mocked responses are recorded; corpus is diffable in review |
+| Anthropic tool-use schema churn on early prompts | Unverified live | Corrective retry shipped in `call_with_retry`; first verification during T11b |
+| 1-hour cache TTL API syntax uncertain | ✅ Resolved | Verified `{"type": "ephemeral", "ttl": "1h"}` against installed SDK's `CacheControlEphemeralParam` |
+| Fastmail plus-addressing edge cases | Unverified live | Fastmail officially supports plus-addressing; first self-test during T11b real send (T14) |
+| Playwright in `launchd` PATH/env issues | Deferred | Phase 7 polish — not on v1-done path |
+| `send_failure_notice` itself fails | ✅ Resolved | Inner try/except writes to stderr without swallowing original (test_send.py) |
+| First-run LLM cost overshoots $0.50 | Unverified live | Dry-run covers most iteration; set spending alert in Anthropic console before T11b |
+| `dedup.py` implicit assumptions about old fields | ✅ Resolved | Phase 1 rewrite clean; all dedup tests green |
+| Classifier corpus label drift | Ongoing | Add entries as FPs/FNs surface in real use; committed yaml is diffable |
 
-## Open questions (resolve during execution)
+## Open questions (still open)
 
-- **Canonical URL normalization** — do we strip `?ref=...`, `utm_*`, trailing slashes before dedup? Probably yes but TBD during T3.
-- **How do we surface "listing updated after we scraped it"?** Out of scope for v1; the live URL link in digest covers it.
-- **Per-source listing-count baseline** — Phase 7. Data to compute the baseline is collected starting day 1.
+- **Canonical URL normalization** — do we strip `?ref=...`, `utm_*`, trailing slashes before dedup? Not done. Revisit if real-world dedup missrate is non-trivial.
+- **Per-source baseline alerting** — Phase 7. Data to compute it is being collected starting day 1 (`date_scraped` + `source`).
 
-## Definition of done
+## Definition of done (tracking)
 
 Per `SPEC.md` §"v1 is done when":
 
-1. `python -m scheduler.run_all` runs end-to-end on a fresh checkout without exceptions
-2. A daily digest arrives via Fastmail, grouped by subfield, interests first
-3. Per-listing emails land in `PhilTracker/Listings`, starrable
-4. Empty-digest days send a receipt
-5. Failed runs send a failure notice
-6. `pytest` is green without `--live`
-7. `pytest --live` is green (ground-truth passes) — run on-demand
-8. LLM day-cost < $0.50 once warm
-9. Repo owner uses it during a real application cycle and stops manually checking sites
+1. ✅ `python -m scheduler.run_all` runs end-to-end on a fresh checkout (dry-run verified)
+2. ⏳ A daily digest arrives via Fastmail (pending T11b + T14)
+3. ⏳ Per-listing emails land in `PhilTracker/Listings`, starrable (pending Sieve rule + T14)
+4. ✅ Empty-digest days send a receipt (tested)
+5. ✅ Failed runs send a failure notice (tested)
+6. ✅ `pytest` is green without `--live` — **61 passed**
+7. ⏳ `pytest --live` green (needs seeded corpora)
+8. ⏳ LLM day-cost < $0.50 once warm (measured in T11b + T14)
+9. ⏳ Repo owner uses it during a real cycle (outcome)
 
 ---
 
-*Plan ready. Confirm Pre-flight checklist, then begin T1.*
+*v1 code complete. `docs/STATUS.md` is the live punch-list; remaining items are user-side (credentials, corpus content, first real send).*

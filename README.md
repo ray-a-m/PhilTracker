@@ -19,7 +19,7 @@ The email is a daily receipt that the tool ran. No news is also news — empty d
 
 ## Status
 
-🚧 **Rewriting toward v1.** A daily-digest MVP replaces the earlier web-app design. Canonical scope: [`docs/SPEC.md`](docs/SPEC.md). Implementation plan: [`docs/PLAN.md`](docs/PLAN.md).
+**v1 code complete; live seeding in progress.** The pipeline runs end-to-end in dry-run; 61 tests green. Remaining work is user-side: real Fastmail credentials, seeding `tests/ground_truth.yaml` (≥10) and `tests/classifier_corpus.yaml` (≥30) from real listing text, and the first real send. See [`docs/STATUS.md`](docs/STATUS.md) for the current punch-list. Canonical scope: [`docs/SPEC.md`](docs/SPEC.md).
 
 ## How it works
 
