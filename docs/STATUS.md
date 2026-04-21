@@ -6,9 +6,9 @@
 
 ## Current state
 
-**Phase:** Phase 3 complete; ready for Phase 4 (scheduler rewire)
+**Phase:** Phase 4 complete; ready for Phase 5 (example files + seed tests)
 **Last updated:** 2026-04-20
-**Last session:** T8–T9 (mailer/ module + SMTP sender); 57 tests green
+**Last session:** T10 scheduler rewire + 4 integration tests; 61 tests green
 
 ## What's done
 
@@ -56,9 +56,25 @@
 - ✅ Dry-run emits valid HTML (digest) + plaintext (failure) to stdout without opening SMTP
 - ✅ Full suite: 57 passed
 
+### Phase 4 — Scheduler rewire (2026-04-20 execution session)
+- ✅ **T10:** `scheduler/run_all.py` rewritten. Pipeline: `init_db → deactivate_expired → scrape → URL-cache filter → classify_and_extract → smart_insert → query today's active → render_digest + render_listing → send_run`. Top-level `try/except` dispatches `send_failure_notice` before re-raising. `load_dotenv()` at startup. Config loaded from `config.local.yaml` (graceful warn if missing).
+- ✅ URL-cache filter is explicit: `models.get_known_urls()` is checked BEFORE the LLM loop so known URLs never hit the API.
+- ✅ `tests/test_scheduler.py` — 4 integration tests covering empty scrape, full-pipeline, URL-cache, failure-notice.
+
+### Checkpoint 4 verification
+- ✅ Empty dry-run → receipt digest printed
+- ✅ 3-listing dry-run with 2 accepted + 1 rejected → digest reports 2 active / 1 rejected; 3 DRY-RUN blocks printed
+- ✅ URL cache bypasses LLM on already-seen URLs
+- ✅ Forced exception → failure-notice dispatched + re-raise
+- ✅ Full suite: 61 passed
+
 ## What's next
 
-**Immediate:** **T10 — scheduler rewire.** The big integration task: `scheduler/run_all.py` currently references the removed `tag_listings` import (broken since T4). Rewrite the pipeline end-to-end: `init_db → deactivate_expired → scrape all → filter-by-URL-cache → classify_and_extract each → smart_insert → query today's active → render digest + per-listing → send_run`, wrapped in top-level `try/except` → `send_failure_notice + raise`.
+**Phase 5** (T11–T13):
+- **T11a:** Create `.env.example` + `config.example.yaml` (files the user then copies locally).
+- **T11b (manual, user action):** First live dry-run. `cp .env.example .env`; fill in real creds; `cp config.example.yaml config.local.yaml`; fill in real interests; `python -m scheduler.run_all --dry-run`.
+- **T12:** Seed `tests/ground_truth.yaml` ≥10. Requires real URLs (Newton, Pitt Center, Minnesota Center + 7 more collected as we find them).
+- **T13:** Seed `tests/classifier_corpus.yaml` ≥30 (15 pos / 15 neg). Requires text from real listings — best sourced from T11b's dry-run output.
 
 **Ground-truth URLs to collect before T12:** Pitt Center for Philosophy of Science postdoc, Minnesota Center postdoc (user to supply exact URLs).
 
@@ -89,6 +105,13 @@ From the refine session:
 - None active. Ready to execute T1 on next action.
 
 ## Session log (most recent first)
+
+### 2026-04-20 — Phase 4 execution
+- Rewrote `scheduler/run_all.py` end-to-end; old `tag_listings` import (broken since T4) is gone
+- URL-cache filter placed BEFORE LLM loop per the Phase 1 locked decision — keeps daily cost flat after warm-up
+- `scraped == 3, fresh == 3, classified == 3, inserted == 3 new, active_today == 2, rejected_today == 1` verified in integration test
+- Test strategy: mock `_scrape_selected` to return in-memory Listings; patch `llm.extract.call_with_retry` with a side_effect list to control LLM responses per-call; rely on real `models.*` with tmp_path DB for end-to-end realism
+- `send_failure_notice` tested via `patch.object(sched, 'send_failure_notice', ...)` capture list — verifies it's called with the correct reason + dry_run flag
 
 ### 2026-04-20 — Phase 3 execution
 - Built mailer/ end-to-end: templates → render → send, all tested with jinja select_autoescape ON

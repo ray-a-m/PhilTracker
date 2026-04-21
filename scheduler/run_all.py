@@ -1,29 +1,42 @@
 """
-Scheduler entry point: runs all scrapers, tags results, and stores them.
+PhilTracker nightly pipeline.
+
+    init_db → deactivate_expired → scrape all → URL-cache filter
+    → classify_and_extract (LLM) → smart_insert → query today's active
+    → render digest + per-listing → send_run
+
+Wrapped in top-level try/except so any failure dispatches
+`send_failure_notice` before re-raising. Silence is the failure mode to avoid.
 
 Usage:
-    python -m scheduler.run_all                     # run everything
-    python -m scheduler.run_all philjobs            # run a specific scraper
-    python -m scheduler.run_all institutional       # run all institutional scrapers
-    python -m scheduler.run_all philjobs spacetime  # run multiple specific scrapers
-
-Designed to be called by GitHub Actions on a daily cron schedule.
+    python -m scheduler.run_all                     # run everything, send for real
+    python -m scheduler.run_all --dry-run           # run everything, print emails to stdout
+    python -m scheduler.run_all philjobs            # single scraper
+    python -m scheduler.run_all philjobs spacetime  # multiple specific scrapers
+    python -m scheduler.run_all institutional       # all institutional scrapers
 """
 
+import argparse
+import os
 import sys
 import time
 from datetime import date
 
-from scrapers.philjobs import PhilJobsScraper
-from scrapers.taking_up_spacetime import TakingUpSpacetimeScraper
+import yaml
+from dotenv import load_dotenv
+
+from backend import models
+from backend.dedup import smart_insert
+from llm.extract import classify_and_extract
+from mailer.render import render_digest, render_listing
+from mailer.send import send_failure_notice, send_run
 from scrapers.academic_jobs_wiki import AcademicJobsWikiScraper
 from scrapers.higheredjobs import HigherEdJobsScraper
 from scrapers.institutional.runner import run_institutional
-from tagger.keywords import tag_listings
-from backend.models import init_db, deactivate_expired
-from backend.dedup import smart_insert
+from scrapers.philjobs import PhilJobsScraper
+from scrapers.taking_up_spacetime import TakingUpSpacetimeScraper
 
-# Registry of standalone scrapers
+
 SCRAPERS = {
     "philjobs": PhilJobsScraper,
     "spacetime": TakingUpSpacetimeScraper,
@@ -31,98 +44,125 @@ SCRAPERS = {
     "higheredjobs": HigherEdJobsScraper,
 }
 
+CONFIG_PATH = os.environ.get("PHILTRACKER_CONFIG", "config.local.yaml")
 
-def run_scraper(scraper_cls) -> list:
-    """Run a single scraper, return its listings."""
-    scraper = scraper_cls()
-    print(f"\n{'='*60}")
-    print(f"Running: {scraper.name}")
-    print(f"URL:     {scraper.url}")
-    print(f"{'='*60}")
 
+def _load_interests() -> list[str]:
+    if not os.path.exists(CONFIG_PATH):
+        print(
+            f"[warn] {CONFIG_PATH} not found — running without interest prioritization",
+            file=sys.stderr,
+        )
+        return []
+    with open(CONFIG_PATH) as f:
+        cfg = yaml.safe_load(f) or {}
+    return list(cfg.get("interests", []))
+
+
+def _run_scraper(cls) -> list:
+    scraper = cls()
+    print(f"\n{'=' * 60}\nRunning: {scraper.name}\nURL:     {scraper.url}\n{'=' * 60}")
     try:
         listings = scraper.scrape()
-        print(f"[{scraper.name}] Scraped {len(listings)} listings")
+        print(f"[{scraper.name}] scraped {len(listings)} listings")
         return listings
     except Exception as e:
-        print(f"[{scraper.name}] FAILED: {e}")
+        print(f"[{scraper.name}] FAILED: {e}", file=sys.stderr)
         return []
 
 
-def run_all(selected: list[str] | None = None):
-    """Run all (or selected) scrapers, tag, and store results."""
-    init_db()
-    deactivate_expired()
-
-    all_listings = []
-
-    if selected:
-        # Run only selected scrapers
-        for name in selected:
-            if name == "institutional":
-                print(f"\n{'='*60}")
-                print("Running: All institutional scrapers")
-                print(f"{'='*60}")
-                try:
-                    listings = run_institutional()
-                    print(f"[Institutional] Total: {len(listings)} listings")
-                    all_listings.extend(listings)
-                except Exception as e:
-                    print(f"[Institutional] FAILED: {e}")
-            elif name in SCRAPERS:
-                listings = run_scraper(SCRAPERS[name])
-                all_listings.extend(listings)
-                time.sleep(2)
-            else:
-                print(f"Warning: unknown scraper '{name}'")
-                print(f"Available: {list(SCRAPERS.keys()) + ['institutional']}")
-    else:
-        # Run everything
-        for name, scraper_cls in SCRAPERS.items():
-            listings = run_scraper(scraper_cls)
-            all_listings.extend(listings)
-            time.sleep(2)
-
-        # Run all institutional scrapers
-        print(f"\n{'='*60}")
-        print("Running: All institutional scrapers")
-        print(f"{'='*60}")
-        try:
-            inst_listings = run_institutional()
-            print(f"[Institutional] Total: {len(inst_listings)} listings")
-            all_listings.extend(inst_listings)
-        except Exception as e:
-            print(f"[Institutional] FAILED: {e}")
-
-    # Tag all listings
-    print(f"\nTagging {len(all_listings)} listings...")
-    tagged = tag_listings(all_listings)
-
-    # Store in database with smart deduplication
-    new_count = 0
-    dup_count = 0
-    merged_count = 0
-    for listing in tagged:
-        result = smart_insert(listing)
-        if result == "new":
-            new_count += 1
-        elif result == "merged":
-            merged_count += 1
+def _scrape_selected(selected: list[str] | None) -> list:
+    targets = selected if selected else list(SCRAPERS.keys()) + ["institutional"]
+    all_listings: list = []
+    for name in targets:
+        if name == "institutional":
+            print(f"\n{'=' * 60}\nRunning: all institutional scrapers\n{'=' * 60}")
+            try:
+                inst = run_institutional()
+                print(f"[institutional] total: {len(inst)} listings")
+                all_listings.extend(inst)
+            except Exception as e:
+                print(f"[institutional] FAILED: {e}", file=sys.stderr)
+        elif name in SCRAPERS:
+            all_listings.extend(_run_scraper(SCRAPERS[name]))
+            time.sleep(1)
         else:
-            dup_count += 1
-
-    print(f"\nDone! Date: {date.today().isoformat()}")
-    print(f"  Total scraped: {len(all_listings)}")
-    print(f"  New listings:  {new_count}")
-    print(f"  Merged:        {merged_count}")
-    print(f"  Duplicates:    {dup_count}")
-
+            print(f"[warn] unknown scraper '{name}'", file=sys.stderr)
     return all_listings
 
 
-def main():
-    selected = sys.argv[1:] if len(sys.argv) > 1 else None
-    run_all(selected)
+def pipeline(selected: list[str] | None, dry_run: bool) -> None:
+    models.init_db()
+    models.deactivate_expired()
+
+    scraped = _scrape_selected(selected)
+    print(f"\nTotal scraped: {len(scraped)}")
+
+    known_urls = models.get_known_urls()
+    fresh = [l for l in scraped if l.url not in known_urls]
+    print(
+        f"URL cache: {len(fresh)} fresh, "
+        f"{len(scraped) - len(fresh)} already in DB (skipping LLM)"
+    )
+
+    for idx, listing in enumerate(fresh, start=1):
+        print(f"  [{idx}/{len(fresh)}] classifying {listing.url}")
+        classify_and_extract(listing)
+
+    new_count = dup_count = 0
+    for listing in fresh:
+        if smart_insert(listing) == "new":
+            new_count += 1
+        else:
+            dup_count += 1
+    print(f"Inserted: {new_count} new, {dup_count} duplicate/fuzzy-match")
+
+    today = date.today().isoformat()
+    active_today = models.get_new_active_listings(today)
+    rejected_today = models.count_rejected_today(today)
+    interests = _load_interests()
+
+    digest_subject, digest_html = render_digest(
+        listings=active_today,
+        interests=interests,
+        rejected_count=rejected_today,
+        today=today,
+    )
+    per_listing = [render_listing(l) for l in active_today]
+
+    send_run(
+        digest_subject=digest_subject,
+        digest_html=digest_html,
+        per_listing_emails=per_listing,
+        dry_run=dry_run,
+    )
+    print(
+        f"\nDone. {len(active_today)} active in digest, "
+        f"{rejected_today} rejected today."
+    )
+
+
+def main() -> None:
+    load_dotenv()
+
+    parser = argparse.ArgumentParser(description="PhilTracker nightly runner")
+    parser.add_argument(
+        "--dry-run", action="store_true",
+        help="Print emails to stdout instead of sending via SMTP",
+    )
+    parser.add_argument(
+        "scrapers", nargs="*",
+        help=f"Optional scraper names; choose from {list(SCRAPERS) + ['institutional']}",
+    )
+    args = parser.parse_args()
+
+    try:
+        pipeline(selected=args.scrapers or None, dry_run=args.dry_run)
+    except Exception as e:
+        reason = f"{type(e).__name__}: {e}"
+        print(f"\n[FATAL] {reason}", file=sys.stderr)
+        send_failure_notice(reason, dry_run=args.dry_run)
+        raise
 
 
 if __name__ == "__main__":

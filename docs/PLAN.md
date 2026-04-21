@@ -293,18 +293,22 @@ send_run(digest_html, digest_subject, per_listing, dry_run=args.dry_run)
 - Preserve the existing scraper-selection CLI args (`philjobs`, `institutional`, etc.)
 
 **Verify:**
-- [ ] `python -m scheduler.run_all --dry-run` runs end-to-end with mocked `anthropic` + empty DB → prints "no new listings" digest
-- [ ] Same with 3 fake scraped listings in memory → prints full digest + 3 per-listing
-- [ ] Induced exception in a scraper → failure-notice path triggered, exception re-raised
+- [x] `test_pipeline_empty_scrape_emits_no_new_listings_digest` — receipt digest printed for zero-listing run
+- [x] `test_pipeline_with_scraped_listings_classifies_inserts_and_renders` — 3 scraped, 2 accepted + 1 rejected; digest = 2 active / 1 rejected; 3 DRY-RUN blocks (1 digest + 2 per-listing)
+- [x] `test_pipeline_skips_already_known_urls` — URL cache filter verified (0 LLM calls on pre-populated URLs)
+- [x] `test_main_catches_exception_and_calls_failure_notice` — `send_failure_notice` dispatched then exception re-raised
 
-**Files:** `scheduler/run_all.py` (heavy rewrite)
+**Files:** `scheduler/run_all.py` (heavy rewrite — `llm.extract` + `mailer.{render,send}` + new model helpers); new `tests/test_scheduler.py` (4 integration tests).
 
-#### Checkpoint 4 — pipeline walks
+**Status:** ✅ Done 2026-04-20
 
-- [ ] Empty dry-run → "no new listings" email to stdout
-- [ ] 3-listing dry-run → digest with 3 entries + 3 per-listing to stdout
-- [ ] Forced exception → failure notice to stdout (via dry-run branch) + re-raise
-- [ ] Commit: `feat: scheduler rewire — scrape → LLM → dedup → render → send`
+#### Checkpoint 4 ✅ 2026-04-20
+
+- [x] Empty dry-run → "no new listings" email to stdout
+- [x] 3-listing dry-run → digest with 2 entries + 2 per-listing to stdout (1 rejected silently marked active=0)
+- [x] Forced exception → failure notice dispatched + re-raise
+- [x] Full suite: 61 passed
+- [x] Commit pending (this session's push)
 
 ---
 
