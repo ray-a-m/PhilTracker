@@ -146,19 +146,31 @@ metaphysics-of-science:
   - "necessity in science"
   - "natural modality"
 
-german-idealism:
-  - "german idealism"
+kant:
+  - "kant"
+  - "kantian"
+  - "transcendental idealism"
+  - "transcendental philosophy"
+  - "categorical imperative"
+  - "critique of pure reason"
+  - "critique of practical reason"
+  - "critique of the power of judgment"
+  - "critique of judgment"
+  - "post-kantian"
+  - "neo-kantian"
+  - "neo-kantianism"
+
+hegel:
   - "hegel"
   - "hegelian"
-  - "schelling"
-  - "fichte"
-  - "kant"
-  - "naturphilosophie"
-  - "philosophy of nature"
-  - "absolute idealism"
-  - "dialectic"
   - "phenomenology of spirit"
   - "science of logic"
+  - "absolute idealism"
+  - "philosophy of right"
+  - "encyclopedia of the philosophical sciences"
+  - "hegel's dialectic"
+  - "hegelian dialectic"
+  - "naturphilosophie"
 
 logic:
   - "philosophical logic"

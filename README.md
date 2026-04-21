@@ -59,7 +59,8 @@ PhilTracker uses a granular tagging system. The canonical list lives in [`tagger
 - `formal-epistemology`
 - `history-and-philosophy-of-science`
 - `metaphysics-of-science`
-- `german-idealism`
+- `kant`
+- `hegel`
 - `social-epistemology`
 
 The LLM reads the tag list + definitions at classification time and assigns one or more tags per listing. Want a new tag? Edit `tags.yaml`; it's live the next run.

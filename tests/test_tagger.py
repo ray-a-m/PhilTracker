@@ -15,7 +15,8 @@ def test_load_tags():
     tags = load_tags()
     assert isinstance(tags, dict)
     assert "philosophy-of-physics" in tags
-    assert "german-idealism" in tags
+    assert "kant" in tags
+    assert "hegel" in tags
 
 
 def test_physics_tag():
@@ -25,11 +26,18 @@ def test_physics_tag():
     assert "philosophy-of-physics" in result
 
 
-def test_german_idealism_tag():
+def test_hegel_tag():
     listing = _make_listing("Research Fellow", "This position focuses on Hegel's Science of Logic and absolute idealism.")
     tags_dict = load_tags()
     result = tag_listing(listing, tags_dict)
-    assert "german-idealism" in result
+    assert "hegel" in result
+
+
+def test_kant_tag():
+    listing = _make_listing("Research Fellow", "Working on transcendental idealism and the Critique of Pure Reason.")
+    tags_dict = load_tags()
+    result = tag_listing(listing, tags_dict)
+    assert "kant" in result
 
 
 def test_no_false_tags():
@@ -64,5 +72,5 @@ def test_tag_listings_batch():
         _make_listing("Fellow in consciousness studies", "phenomenal consciousness and qualia"),
     ]
     tagged = tag_listings(listings)
-    assert tagged[0].aos == ["german-idealism"]
+    assert tagged[0].aos == ["hegel"]
     assert "philosophy-of-mind" in tagged[1].aos

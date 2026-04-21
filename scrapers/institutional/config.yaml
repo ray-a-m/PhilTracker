@@ -561,37 +561,37 @@ sites:
     url: "https://www.ruhr-uni-bochum.de/hegel-archiv/"
     type: static
     keywords: *default_keywords
-    subfield: "german-idealism"
+    subfield: "hegel"
 
   - name: "Warwick Post-Kantian"
     url: "https://warwick.ac.uk/fac/soc/philosophy/research/centres/postkantian/"
     type: static
     keywords: *default_keywords
-    subfield: "german-idealism"
+    subfield: "kant"
 
   - name: "Wuppertal Hegel"
     url: "https://www.izth.uni-wuppertal.de/en/"
     type: static
     keywords: *default_keywords
-    subfield: "german-idealism"
+    subfield: "hegel"
 
   - name: "Jena German Idealism"
     url: "https://www.philosophie.uni-jena.de/en"
     type: static
     keywords: *default_keywords
-    subfield: "german-idealism"
+    subfield: "hegel"
 
   - name: "Heidelberg German Idealism"
     url: "https://www.philosophie.uni-heidelberg.de/en"
     type: static
     keywords: *default_keywords
-    subfield: "german-idealism"
+    subfield: "hegel"
 
   - name: "Tübingen Idealism"
     url: "https://uni-tuebingen.de/en/faculties/faculty-of-humanities/departments/philosophy/department/"
     type: static
     keywords: *default_keywords
-    subfield: "german-idealism"
+    subfield: "hegel"
 
   - name: "Villanova Phenomenology"
     url: "https://www1.villanova.edu/university/liberal-arts-sciences/programs/philosophy.html"
