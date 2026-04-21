@@ -6,9 +6,9 @@
 
 ## Current state
 
-**Phase:** Phase 2 complete; ready for Phase 3 (rendering + sending)
+**Phase:** Phase 3 complete; ready for Phase 4 (scheduler rewire)
 **Last updated:** 2026-04-20
-**Last session:** T4–T7 (llm/ module + prompt snapshot); 44 tests green
+**Last session:** T8–T9 (mailer/ module + SMTP sender); 57 tests green
 
 ## What's done
 
@@ -46,14 +46,19 @@
 - ✅ Zero network calls in tests (all anthropic.Anthropic mocked)
 - ✅ `llm/` module is self-contained — importable, testable without API key
 
+### Phase 3 — Rendering + sending (2026-04-20 execution session)
+- ✅ **T8:** jinja2 `select_autoescape` ON; `listing.html.j2` partial is shared between digest (`{% include %}`) and per-listing emails; `mailer/render.py` with `render_digest` + `render_listing`; interest sections first (ordered), then remaining alphabetically. Snapshots (`digest_3listings.html`, `digest_empty.html`, `listing_physics.html`) committed — synthetic fixtures only.
+- ✅ **T9:** `mailer/send.py` sends digest + N per-listing over a single `SMTP_SSL` connection; digest From = `DIGEST_SENDER`, per-listing From = `LISTING_SENDER` (plus-addressed aliases for Fastmail Sieve routing). `send_failure_notice()` uses stdlib-only imports (smtplib + email.message) and is wrapped in its own try/except → stderr fallback so the original exception still surfaces.
+
+### Checkpoint 3 verification
+- ✅ 7 render tests + 6 send tests pass
+- ✅ `<script>` escape verified on both summary and title
+- ✅ Dry-run emits valid HTML (digest) + plaintext (failure) to stdout without opening SMTP
+- ✅ Full suite: 57 passed
+
 ## What's next
 
-**Immediate:** **Phase 3 (T8–T9) — jinja2 templates + renderer + SMTP sender.**
-
-- T8 merges template (`listing.html.j2` + `digest.html.j2`) + renderer into one coherent task; includes the `<script>`-in-summary escape test
-- T9 builds `mailer/send.py` with the digest + per-listing + failure-notice paths
-
-**Still-broken imports to fix in T10:** `scheduler/run_all.py` still imports the removed `tag_listings`. Addressed in the scheduler rewrite.
+**Immediate:** **T10 — scheduler rewire.** The big integration task: `scheduler/run_all.py` currently references the removed `tag_listings` import (broken since T4). Rewrite the pipeline end-to-end: `init_db → deactivate_expired → scrape all → filter-by-URL-cache → classify_and_extract each → smart_insert → query today's active → render digest + per-listing → send_run`, wrapped in top-level `try/except` → `send_failure_notice + raise`.
 
 **Ground-truth URLs to collect before T12:** Pitt Center for Philosophy of Science postdoc, Minnesota Center postdoc (user to supply exact URLs).
 
@@ -84,6 +89,13 @@ From the refine session:
 - None active. Ready to execute T1 on next action.
 
 ## Session log (most recent first)
+
+### 2026-04-20 — Phase 3 execution
+- Built mailer/ end-to-end: templates → render → send, all tested with jinja select_autoescape ON
+- Listing partial shared between digest + per-listing to keep rendering single-sourced
+- Send path: one SMTP_SSL connection sends all N+1 messages; digest From ≠ listing From (plus-addressed aliases → Fastmail Sieve rule routes per-listing to PhilTracker/Listings)
+- Failure-notice: stdlib-only imports (smtplib + email.message), its own try/except with stderr fallback; survives jinja/anthropic import failures
+- Snapshots use synthetic dates (2099-04-21) + fake source ("FakeSource") so committed test data is unambiguously non-real
 
 ### 2026-04-20 — Phase 2 execution
 - Built `llm/` module end-to-end: prompts → client → extract, all tested with mocks

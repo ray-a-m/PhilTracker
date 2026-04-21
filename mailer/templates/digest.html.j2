@@ -1,0 +1,42 @@
+{# Full digest email. Variables:
+   - today (str, ISO-8601)
+   - listings (list[dict])
+   - sections (list[(slug, list[dict])]) — interests first, then others
+   - interests (list[str]) — the user's configured slugs
+   - interest_match_count (int)
+   - rejected_count (int)
+#}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>PhilTracker digest {{ today }}</title>
+</head>
+<body style="font-family: -apple-system, system-ui, sans-serif; max-width: 640px; margin: 0 auto; padding: 1.5em; color: #222;">
+  <h1 style="font-size: 1.3em; margin: 0 0 0.3em;">PhilTracker — {{ today }}</h1>
+  {% if not listings %}
+    <p style="color: #555;"><em>No new listings today. The scraper ran successfully.</em></p>
+  {% else %}
+    <p style="color: #555; margin-top: 0;">
+      {{ listings | length }} new listing{% if listings | length != 1 %}s{% endif %}
+      {% if interest_match_count %} · {{ interest_match_count }} matching your interests{% endif %}
+    </p>
+    {% for section_slug, section_listings in sections %}
+    <section style="margin-top: 1.5em;">
+      <h2 style="font-size: 1.1em; border-bottom: 2px solid #114488; padding-bottom: 4px; margin-bottom: 0.8em;">
+        {{ section_slug }}
+        {% if section_slug in interests %}<span title="matches your interests" style="color: #c96;">★</span>{% endif %}
+      </h2>
+      {% for listing in section_listings %}
+        {% include "listing.html.j2" %}
+      {% endfor %}
+    </section>
+    {% endfor %}
+  {% endif %}
+  <hr style="margin-top: 2em; border: none; border-top: 1px solid #ddd;">
+  <footer style="color: #888; font-size: 0.85em;">
+    <div>Total: {{ listings | length }} · Rejected today: {{ rejected_count }}</div>
+    <div style="margin-top: 4px;">PhilTracker · nightly · star per-listing emails in <code>PhilTracker/Listings</code> to pin</div>
+  </footer>
+</body>
+</html>

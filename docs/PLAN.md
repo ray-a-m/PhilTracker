@@ -218,11 +218,15 @@ Implementation flows bottom-up.
   - Empty-day path: `render_digest([], ...)` returns the "no new listings" variant
 
 **Verify:**
-- [ ] Snapshot test in `tests/test_render.py`: fixed 3-synthetic-listing input → diff against `tests/snapshots/digest_3listings.html`
-- [ ] Escaping test: one listing's summary is `<script>alert(1)</script>`; snapshot shows `&lt;script&gt;alert(1)&lt;/script&gt;`
-- [ ] Empty-day snapshot: `tests/snapshots/digest_empty.html`
+- [x] `tests/snapshots/digest_3listings.html` committed; `test_digest_3_listings_snapshot` passes
+- [x] `test_summary_with_script_tag_is_escaped` + `test_title_with_script_tag_is_escaped` — defense in depth for both summary and title
+- [x] `tests/snapshots/digest_empty.html` committed; empty-day path tested
+- [x] `test_digest_interest_sections_come_first` — ordering verified
+- [x] Per-listing path: `tests/snapshots/listing_physics.html` + subject-line tests for both deadline and no-deadline cases
 
-**Files:** new `mailer/__init__.py`, new `mailer/render.py`, new `mailer/templates/listing.html.j2`, new `mailer/templates/digest.html.j2`, new `tests/test_render.py`, new `tests/snapshots/digest_3listings.html`, new `tests/snapshots/digest_empty.html`
+**Files:** new `mailer/__init__.py`, `mailer/render.py`, `mailer/templates/listing.html.j2`, `mailer/templates/digest.html.j2`; new `tests/test_render.py` (7 tests); snapshots: `digest_3listings.html`, `digest_empty.html`, `listing_physics.html`.
+
+**Status:** ✅ Done 2026-04-20
 
 #### T9. `mailer/send.py` `[M]`
 
@@ -236,18 +240,23 @@ Implementation flows bottom-up.
   - Wrapped in its own `try/except Exception as inner: sys.stderr.write(...)` so the original failure still surfaces
 
 **Verify:**
-- [ ] Unit test with mocked `smtplib.SMTP_SSL`: assert `sendmail` called N+1 times, with correct From addresses
-- [ ] Dry-run test: stdout contains both digest + per-listing markup, no SMTP connection attempted
-- [ ] Failure-notice test: mocked SMTP, assert plaintext message + correct subject `[PhilTracker] FAILED YYYY-MM-DD — ...`
+- [x] `test_send_run_one_connection_digest_plus_per_listing` — asserts single `SMTP_SSL`, one `login`, N+1 `send_message` with correct From per-message
+- [x] `test_send_run_dry_run_prints_and_does_not_connect` — stdout contains both digest and per-listing markup
+- [x] `test_failure_notice_plaintext_subject_and_body` — single-part plaintext, correct subject + body
+- [x] `test_failure_notice_swallows_own_failure_and_writes_stderr` — if SMTP dies, writes to stderr without raising (so caller can re-raise the original)
+- [x] `test_send_run_raises_without_env_vars` — clean `RuntimeError` if env vars missing
 
-**Files:** new `mailer/send.py`, new `tests/test_send.py`
+**Files:** new `mailer/send.py`, new `tests/test_send.py` (6 tests).
 
-#### Checkpoint 3
+**Status:** ✅ Done 2026-04-20
 
-- [ ] `pytest tests/test_render.py tests/test_send.py` green
-- [ ] Render snapshot catches `<script>` escape
-- [ ] Dry-run mode emits valid HTML to stdout
-- [ ] Commit: `feat: mailer/ module — jinja2 render + Fastmail SMTP sender`
+#### Checkpoint 3 ✅ 2026-04-20
+
+- [x] `pytest tests/test_render.py tests/test_send.py` → 13 green
+- [x] Render snapshot catches `<script>` escape (summary + title)
+- [x] Dry-run mode emits valid HTML + plaintext (failure-notice) to stdout
+- [x] Full suite: 57 passed
+- [x] Commit pending (this session's push)
 
 ---
 

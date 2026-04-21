@@ -1,0 +1,26 @@
+{# One-listing partial. Shared by the digest (as an {% include %}) and per-listing emails.
+   Variables: listing (dict with title/institution/url/deadline/location/duration/summary/listing_type/source/aos).
+   All values auto-escaped by jinja2 select_autoescape.
+#}
+<div style="margin: 0 0 1.5em; padding: 0 0 1em; border-bottom: 1px solid #ddd; line-height: 1.4;">
+  <div style="font-size: 1.05em; font-weight: 600;">
+    <a href="{{ listing.url }}" style="color: #114488; text-decoration: none;">{{ listing.title or "(untitled)" }}</a>
+  </div>
+  <div style="color: #444; margin-top: 2px;">
+    <strong>{{ listing.institution or "—" }}</strong>
+    {% if listing.location %} · {{ listing.location }}{% endif %}
+    {% if listing.listing_type and listing.listing_type != 'unknown' %} · {{ listing.listing_type }}{% endif %}
+  </div>
+  <div style="color: #555; margin-top: 2px; font-size: 0.95em;">
+    {% if listing.deadline %}
+      Deadline: <strong>{{ listing.deadline }}</strong>
+    {% else %}
+      <em>no deadline listed</em>
+    {% endif %}
+    {% if listing.duration %} · Duration: {{ listing.duration }}{% endif %}
+  </div>
+  {% if listing.summary %}
+  <div style="margin-top: 6px;">{{ listing.summary }}</div>
+  {% endif %}
+  <div style="color: #888; font-size: 0.85em; margin-top: 4px;">Source: {{ listing.source }}</div>
+</div>
