@@ -132,10 +132,12 @@ Implementation flows bottom-up.
   - `TOOL_SCHEMA` constant: the JSON schema for structured output per `SPEC.md` §LLM pipeline — fields `is_posting, confidence, posting_type, title, institution, deadline, location, duration, aos, summary`. No `rejection_reason`.
 
 **Verify:**
-- [ ] Prompt unit test: `pytest tests/test_llm.py::test_prompt_snapshot` — snapshot matches committed file
-- [ ] `load_tags()` returns the expected slug list
+- [x] Prompt snapshot committed at `tests/snapshots/system_prompt.txt` (8150 bytes); `pytest tests/test_llm.py::test_system_prompt_snapshot` green
+- [x] `load_tags()` returns dict; 3 taxonomy-health tests pass
 
-**Files:** new `llm/__init__.py`, new `llm/prompts.py`, rewrite `tagger/keywords.py`
+**Files:** new `llm/__init__.py`, new `llm/prompts.py`; `tagger/keywords.py` stripped to 14-line loader; `tests/test_tagger.py` rewritten as 3 taxonomy checks.
+
+**Status:** ✅ Done 2026-04-20
 
 #### T5. `llm/client.py` — anthropic wrapper `[S]`
 
@@ -148,10 +150,15 @@ Implementation flows bottom-up.
 **⚠️ Verify the 1-hour TTL API shape against current Anthropic SDK docs before coding.** The exact parameter (ttl keyword vs a beta flag) changes; five minutes of reading saves a retry loop.
 
 **Verify:**
-- [ ] Unit test with mocked `anthropic.Anthropic`: assert retry count on simulated 429
-- [ ] Assert `cache_control` present on the system block of the outgoing request
+- [x] Verified against installed SDK: `CacheControlEphemeralParam` accepts `{"type": "ephemeral", "ttl": "1h"}`
+- [x] `test_cache_control_1h_on_system_block` — asserts system block carries 1h cache_control
+- [x] `test_retries_on_rate_limit_then_succeeds` — asserts 3 calls (2 retries), 2 `time.sleep` invocations
+- [x] `test_raises_after_max_retries_exceeded` — asserts RateLimitError raised after `max_retries` exhausted
+- [x] `test_corrective_retry_when_tool_use_missing` — asserts corrective hint appended to second call
 
-**Files:** new `llm/client.py`
+**Files:** new `llm/client.py`; `tests/test_llm.py` with 6 client tests.
+
+**Status:** ✅ Done 2026-04-20
 
 #### T6. `llm/extract.py` — single-call classify+extract `[M]`
 
@@ -162,11 +169,13 @@ Implementation flows bottom-up.
 - No DB writes here — pure transformation. Caller persists.
 
 **Verify:**
-- [ ] Test using recorded mocked response for Newton Fellowship (positive)
-- [ ] Test using recorded mocked response for a blog post (negative)
-- [ ] Field mapping assertions on both
+- [x] `test_classify_positive_maps_all_fields` — full field-mapping assertion against Newton fixture
+- [x] `test_classify_negative_marks_inactive_and_preserves_scraper_fields` — reject path preserves scraper title/institution for debug
+- [x] `test_classify_falls_back_to_scraper_when_llm_returns_empty` — defensive: LLM positively classifies but returns empty title → scraper value kept
 
-**Files:** new `llm/extract.py`, new `tests/mocked_llm_responses/newton_positive.json`, new `tests/mocked_llm_responses/blog_negative.json`
+**Files:** new `llm/extract.py`, new `tests/mocked_llm_responses/newton_positive.json`, new `tests/mocked_llm_responses/blog_negative.json`.
+
+**Status:** ✅ Done 2026-04-20
 
 #### T7. LLM test harness `[S]`
 
@@ -178,17 +187,20 @@ Implementation flows bottom-up.
 - All use mocked `anthropic.Anthropic`; zero network calls
 
 **Verify:**
-- [ ] `pytest tests/test_llm.py` passes without `ANTHROPIC_API_KEY`
-- [ ] `pytest tests/test_llm.py -v` shows 4 passing tests
+- [x] `pytest tests/test_llm.py` → 10 passing (prompt snapshot + 6 client + 3 extract)
+- [x] Zero network calls — all anthropic.Anthropic instances are mocked
 
-**Files:** new `tests/test_llm.py`, new `tests/conftest.py` (mock fixture helper + `--live` flag)
+**Files:** `tests/test_llm.py` (10 tests covering T5, T6, and T7 prompt snapshot). `tests/conftest.py` deferred to T12 when `--live` flag matters.
 
-#### Checkpoint 2
+**Status:** ✅ Done 2026-04-20
 
-- [ ] `pytest tests/test_llm.py` green
-- [ ] Prompt snapshot stable and committed
-- [ ] Both mocked fixtures exercise their code paths
-- [ ] Commit: `feat: llm/ module with Haiku 4.5 classify+extract pipeline`
+#### Checkpoint 2 ✅ 2026-04-20
+
+- [x] `pytest tests/test_llm.py` → 10 green
+- [x] Prompt snapshot stable and committed (8150 bytes)
+- [x] Both mocked fixtures exercise their code paths
+- [x] Full suite: 44 passed
+- [x] Commit pending (this session's push)
 
 ---
 

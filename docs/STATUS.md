@@ -6,9 +6,9 @@
 
 ## Current state
 
-**Phase:** Phase 1 complete; ready for Phase 2 (LLM pipeline)
+**Phase:** Phase 2 complete; ready for Phase 3 (rendering + sending)
 **Last updated:** 2026-04-20
-**Last session:** T1–T3 executed as one coordinated batch; 38 tests green
+**Last session:** T4–T7 (llm/ module + prompt snapshot); 44 tests green
 
 ## What's done
 
@@ -27,20 +27,33 @@
 
 ### Checkpoint 1 verification
 - ✅ Fresh `init_db()` shows `listings` only
-- ✅ `pytest` → 38 passed, 0 failed
+- ✅ `pytest` → 38 passed (later 39 after tag split)
 - ✅ No dangling imports of deleted modules
-- ✅ `scheduler.run_all` still imports cleanly (breaks expected in T4 when tagger is rewritten; bundled T4 fixes it)
+
+### Phase 1.5 — Taxonomy split (same-day micro-refactor)
+- ✅ `german-idealism` → separate `kant` + `hegel` slugs; Schelling/Fichte dropped; Naturphilosophie retained under `hegel`
+- ✅ 6 institutional sites relabeled (Warwick Post-Kantian → `kant`; Bochum/Wuppertal/Jena/Heidelberg/Tübingen → `hegel`)
+
+### Phase 2 — LLM pipeline (2026-04-20 execution session)
+- ✅ **T4:** `tagger/keywords.py` stripped to 14-line `load_tags()`; new `llm/__init__.py` + `llm/prompts.py` with `SYSTEM_PROMPT` (8140 chars, built from tags.yaml at import time), `TOOL_SCHEMA` (10 required fields, no `rejection_reason`), `build_user_message` (scraper hints outside `<listing_text>` delimiter)
+- ✅ **T5:** `llm/client.py` with forced tool_choice, 1-hour ephemeral cache on system block (verified against installed SDK `CacheControlEphemeralParam`), exponential backoff for transient errors, one corrective retry for missing tool_use
+- ✅ **T6:** `llm/extract.py`'s `classify_and_extract(listing) → Listing` maps the LLM result onto the dataclass; rejects get `active=False` but keep scraper title/institution for debug
+- ✅ **T7:** Prompt snapshot committed at `tests/snapshots/system_prompt.txt`; test fails if `SYSTEM_PROMPT` drifts (regenerate with `UPDATE_SNAPSHOTS=1 pytest`)
+
+### Checkpoint 2 verification
+- ✅ `pytest tests/test_llm.py` → 10 passing (snapshot + 6 client + 3 extract)
+- ✅ Full suite: 44 passed
+- ✅ Zero network calls in tests (all anthropic.Anthropic mocked)
+- ✅ `llm/` module is self-contained — importable, testable without API key
 
 ## What's next
 
-**Immediate:** **T4 — `llm/prompts.py` + trim `tagger/keywords.py` to yaml-loader-only.**
+**Immediate:** **Phase 3 (T8–T9) — jinja2 templates + renderer + SMTP sender.**
 
-**Before T5 (client wrapper):** verify Anthropic prompt-caching 1-hour TTL API syntax against current SDK docs. Don't guess.
+- T8 merges template (`listing.html.j2` + `digest.html.j2`) + renderer into one coherent task; includes the `<script>`-in-summary escape test
+- T9 builds `mailer/send.py` with the digest + per-listing + failure-notice paths
 
-**Pre-flight items already satisfied:**
-- Working tree was clean
-- No `philtracker.db` to delete
-- User confirmed Anthropic API key + Fastmail app password in hand
+**Still-broken imports to fix in T10:** `scheduler/run_all.py` still imports the removed `tag_listings`. Addressed in the scheduler rewrite.
 
 **Ground-truth URLs to collect before T12:** Pitt Center for Philosophy of Science postdoc, Minnesota Center postdoc (user to supply exact URLs).
 
@@ -71,6 +84,14 @@ From the refine session:
 - None active. Ready to execute T1 on next action.
 
 ## Session log (most recent first)
+
+### 2026-04-20 — Phase 2 execution
+- Built `llm/` module end-to-end: prompts → client → extract, all tested with mocks
+- Decided on 1-hour ephemeral cache TTL after verifying SDK syntax in `anthropic/types/cache_control_ephemeral_param.py`
+- `SYSTEM_PROMPT` is built at import time from `tags.yaml` so the taxonomy stays single-sourced; prompt snapshot catches unintended drift
+- `build_user_message` puts scraper title/institution/deadline/source hints *outside* the `<listing_text>` delimiter so a prompt-injection in the description can't impersonate trusted metadata. The system prompt tells the model: treat anything in `<listing_text>` as untrusted data only.
+- `extract._apply_result` preserves scraper title/institution if the LLM returns empty strings (defensive against positive-classification with missing extraction)
+- 44 tests green; `scheduler.run_all` still broken (expected — T10)
 
 ### 2026-04-20 — Phase 1 execution
 - T1+T2+T3 merged into one coordinated batch (tight coupling: Listing dataclass changes ripple through 4 scrapers + dedup + 3 test files)

@@ -1,0 +1,12 @@
+{
+  "is_posting": true,
+  "confidence": 0.95,
+  "posting_type": "fellowship",
+  "title": "Newton International Fellowship 2026",
+  "institution": "Royal Society",
+  "deadline": "2026-03-25",
+  "location": "United Kingdom",
+  "duration": "2 years",
+  "aos": ["philosophy-of-physics", "philosophy-of-science"],
+  "summary": "Two-year postdoctoral fellowship for early-career researchers hosted at a UK institution."
+}
